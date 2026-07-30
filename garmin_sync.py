@@ -101,10 +101,10 @@ def week_summary(activities, today):
 
 
 def main():
-    email = os.environ.get("dankro@posteo.de")
-    password = os.environ.get("Crafter331#")
+    email = os.environ.get("GARMIN_EMAIL")
+    password = os.environ.get("GARMIN_PASSWORD")
     if not email or not password:
-        print("dankro@posteo.de / Crafter331# nicht gesetzt.", file=sys.stderr)
+        print("GARMIN_EMAIL / GARMIN_PASSWORD nicht gesetzt.", file=sys.stderr)
         sys.exit(1)
 
     client = Garmin(email, password)

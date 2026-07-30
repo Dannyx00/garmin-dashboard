@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Garmin Dashboard</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root{
+  --bg:#0E1015;
+  --card:#171A22;
+  --card-2:#1D212B;
+  --ink:#F2F3F6;
+  --ink-soft:#8B90A0;
+  --border:rgba(255,255,255,0.08);
+  --primary:#5B7CFA;
+  --primary-soft:rgba(91,124,250,0.14);
+  --good:#34D399;
+  --warn:#F5B84B;
+  --hot:#FF7A59;
+  --track:#282C38;
+  --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 32px rgba(0,0,0,0.35);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Inter',sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:960px;margin:0 auto;padding:28px 20px 64px;}
+
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px;}
+.brand{display:flex;align-items:center;gap:10px;}
+.brand-dot{width:10px;height:10px;border-radius:50%;background:var(--primary);box-shadow:0 0 12px var(--primary);}
+.brand-title{font-family:'Outfit',sans-serif;font-weight:700;font-size:18px;letter-spacing:-0.01em;}
+.brand-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-soft);}
+.topbar-right{display:flex;align-items:center;gap:12px;}
+.sync-meta{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-soft);}
+button.refresh{
+  font-family:'Inter',sans-serif;font-weight:600;font-size:13px;
+  background:var(--primary);color:#fff;border:none;
+  padding:10px 18px;border-radius:99px;cursor:pointer;
+  display:flex;align-items:center;gap:8px;
+  transition:transform .12s ease, filter .15s ease;
+}
+button.refresh:hover{filter:brightness(1.12);}
+button.refresh:active{transform:scale(0.97);}
+button.refresh:focus-visible{outline:2px solid var(--primary);outline-offset:2px;}
+button.refresh:disabled{opacity:0.55;cursor:progress;}
+button.refresh.loading svg{animation:spin 0.9s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+.hero{
+  background:radial-gradient(circle at 12% 18%, rgba(91,124,250,0.35), transparent 55%),
+             radial-gradient(circle at 90% 90%, rgba(255,122,89,0.18), transparent 50%),
+             var(--card);
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:30px 28px;
+  margin-bottom:20px;
+  box-shadow:var(--shadow);
+  display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px;
+}
+.hero-label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px;}
+.hero-number{font-family:'Outfit',sans-serif;font-weight:800;font-size:clamp(44px,9vw,72px);line-height:1;letter-spacing:-0.02em;}
+.hero-number span{font-size:0.32em;font-weight:600;color:var(--ink-soft);margin-left:6px;}
+.hero-sub{font-size:13px;color:var(--ink-soft);margin-top:8px;}
+.phase-badge{
+  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;
+  background:var(--primary-soft);color:var(--primary);border:1px solid rgba(91,124,250,0.35);
+  padding:8px 14px;border-radius:99px;white-space:nowrap;
+}
+
+h2.section-title{font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;margin:0 0 14px;display:flex;align-items:baseline;gap:8px;color:var(--ink);}
+h2.section-title .n{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-soft);font-weight:400;}
+
+.plan-card{
+  background:var(--card);border:1px solid var(--border);border-radius:20px;
+  padding:20px;margin-bottom:32px;box-shadow:var(--shadow);
+}
+.plan-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:18px;}
+.plan-longrun{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink-soft);}
+.plan-longrun b{color:var(--good);font-family:'Outfit',sans-serif;font-size:16px;}
+.week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;}
+.day-cell{
+  background:var(--card-2);border:1px solid var(--border);border-radius:12px;
+  padding:10px 8px;min-height:92px;display:flex;flex-direction:column;gap:6px;
+}
+.day-cell.today{border-color:var(--primary);box-shadow:0 0 0 1px var(--primary);}
+.day-name{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink-soft);}
+.day-name.today-label{color:var(--primary);}
+.day-session{font-size:11px;font-weight:600;line-height:1.35;color:var(--ink);}
+.day-tag{font-size:9px;font-family:'JetBrains Mono',monospace;padding:2px 6px;border-radius:99px;width:fit-content;}
+.tag-rest{color:var(--ink-soft);background:rgba(255,255,255,0.06);}
+.tag-easy{color:var(--good);background:rgba(52,211,153,0.12);}
+.tag-hard{color:var(--hot);background:rgba(255,122,89,0.12);}
+.tag-long{color:var(--primary);background:var(--primary-soft);}
+@media (max-width:640px){ .week-grid{grid-template-columns:repeat(4,1fr);} }
+
+.wellness-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:32px;}
+.ring-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:16px;box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;}
+.ring-card .rlabel{font-size:12px;font-weight:600;color:var(--ink);}
+.ring-empty{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-soft);}
+
+.activity-card{
+  background:var(--card);border:1px solid var(--border);border-radius:16px;
+  padding:14px 16px;margin-bottom:10px;box-shadow:var(--shadow);
+  display:grid;grid-template-columns:44px 1fr auto;gap:14px;align-items:center;
+}
+.act-icon{width:44px;height:44px;border-radius:12px;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.act-main{min-width:0;}
+.act-name{font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.act-date{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-soft);margin-top:2px;}
+.act-stats{text-align:right;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink-soft);line-height:1.6;}
+.act-stats b{color:var(--ink);font-weight:600;font-family:'Inter',sans-serif;}
+.hr-bar{width:74px;height:5px;background:var(--track);margin:5px 0 0 auto;position:relative;border-radius:99px;overflow:hidden;}
+.hr-bar i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,var(--warn),var(--hot));border-radius:99px;}
+
+.state-box{font-family:'Inter',sans-serif;font-size:13px;color:var(--ink-soft);padding:26px 16px;border:1px dashed var(--border);border-radius:16px;text-align:center;background:var(--card);}
+.state-box.error{color:var(--hot);border-color:var(--hot);}
+
+footer{margin-top:36px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-soft);text-align:center;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <div class="brand">
+      <div class="brand-dot"></div>
+      <div>
+        <div class="brand-title">Garmin Dashboard</div>
+        <div class="brand-sub">eigenständig &middot; GitHub-Actions-Sync</div>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="sync-meta" id="syncMeta">lade Daten &hellip;</div>
+      <button class="refresh" id="refreshBtn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12a9 9 0 1 1-3-6.7" stroke-linecap="round"/><path d="M21 3v6h-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span id="refreshLabel">Neu laden</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div>
+      <div class="hero-label">Bis zum Marathon</div>
+      <div class="hero-number" id="countdownNumber">&mdash;<span>Tage</span></div>
+      <div class="hero-sub" id="countdownSub"></div>
+    </div>
+    <div class="phase-badge" id="phaseBadge">&mdash;</div>
+  </div>
+
+  <h2 class="section-title">Diese Woche <span class="n" id="weekRange"></span></h2>
+  <div class="plan-card">
+    <div class="plan-top">
+      <div class="plan-longrun">Long Run diese Woche &middot; <b id="longRunVal">&mdash; km</b></div>
+      <div class="plan-longrun" id="weekKmSummary"></div>
+    </div>
+    <div class="week-grid" id="weekGrid"></div>
+  </div>
+
+  <h2 class="section-title">Wellness <span class="n">// letzter Sync</span></h2>
+  <div class="wellness-grid" id="wellnessGrid"></div>
+
+  <h2 class="section-title">Letzte Aktivitäten <span class="n" id="actCount"></span></h2>
+  <div id="activityList"><div class="state-box">Lade Aktivitäten &hellip;</div></div>
+
+  <footer>Datenquelle: Garmin Connect via stündlichem GitHub-Actions-Sync &middot; Trainingsplan als Richtwert, berechnet aus dem Marathon-Zieldatum (01.11.2026)</footer>
+</div>
+
+<script>
+// data.json liegt im selben Verzeichnis wie diese Seite (wird von der
+// GitHub Action nach docs/data.json geschrieben und via GitHub Pages ausgeliefert).
+const DATA_URL = "data.json";
+const RACE_DATE = new Date("2026-11-01T23:59:59");
+
+const ICONS = {
+  RUNNING: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9.5"/><path d="M8 15l3-4 2 2 3-5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  CYCLING: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="17" r="3.2"/><circle cx="18" cy="17" r="3.2"/><path d="M6 17l5-9h4l3 9M11 8H8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  HIKING: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18l5-11 3 6 2-3 5 8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  DEFAULT: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9.5"/><path d="M12 7v5l3 3" stroke-linecap="round"/></svg>'
+};
+
+const WELLNESS_FIELDS = [
+  {key:'body_battery', label:'Body Battery', max:100},
+  {key:'sleep_score', label:'Schlaf', max:100},
+  {key:'hrv', label:'HRV', max:120, unit:'ms'},
+  {key:'stress_avg', label:'Stress', max:100},
+  {key:'readiness', label:'Bereitschaft', max:100}
+];
+
+/* ---------------- Trainingsplan (läuft komplett lokal im Browser) ---------------- */
+function getPhase(weeksRemaining){
+  if(weeksRemaining <= 2) return {key:'taper', label:'Tapering'};
+  if(weeksRemaining <= 4) return {key:'peak', label:'Spitzentraining'};
+  if(weeksRemaining <= 10) return {key:'build', label:'Aufbauphase'};
+  return {key:'base', label:'Grundlagenausdauer'};
+}
+function getLongRunKm(weeksRemaining, phaseKey){
+  if(phaseKey === 'taper') return weeksRemaining <= 1 ? 8 : 14;
+  if(phaseKey === 'peak') return 30;
+  if(phaseKey === 'build') return Math.round(18 + (10 - weeksRemaining) * 1.6);
+  return 16;
+}
+const DAY_TEMPLATES = {
+  base: [
+    {n:'Mo', s:'Ruhetag', t:'rest'},
+    {n:'Di', s:'Dauerlauf 8 km', t:'easy'},
+    {n:'Mi', s:'Cross / Rad', t:'easy'},
+    {n:'Do', s:'Dauerlauf 10 km + Steigerungen', t:'easy'},
+    {n:'Fr', s:'Ruhetag', t:'rest'},
+    {n:'Sa', s:'Long Run', t:'long'},
+    {n:'So', s:'Regeneration 5 km', t:'easy'}
+  ],
+  build: [
+    {n:'Mo', s:'Ruhetag', t:'rest'},
+    {n:'Di', s:'Intervalle 6&times;3 min', t:'hard'},
+    {n:'Mi', s:'Dauerlauf 8&ndash;10 km', t:'easy'},
+    {n:'Do', s:'Tempodauerlauf 8 km', t:'hard'},
+    {n:'Fr', s:'Ruhetag / Cross', t:'rest'},
+    {n:'Sa', s:'Long Run', t:'long'},
+    {n:'So', s:'Regeneration 6 km', t:'easy'}
+  ],
+  peak: [
+    {n:'Mo', s:'Ruhetag', t:'rest'},
+    {n:'Di', s:'Intervalle 5&times;1 km (Renntempo)', t:'hard'},
+    {n:'Mi', s:'Dauerlauf 10 km', t:'easy'},
+    {n:'Do', s:'Tempodauerlauf 10 km', t:'hard'},
+    {n:'Fr', s:'Ruhetag', t:'rest'},
+    {n:'Sa', s:'Long Run + Marathontempo', t:'long'},
+    {n:'So', s:'Regeneration 6 km', t:'easy'}
+  ],
+  taper: [
+    {n:'Mo', s:'Ruhetag', t:'rest'},
+    {n:'Di', s:'Kurze Intervalle, wenig Umfang', t:'hard'},
+    {n:'Mi', s:'Dauerlauf 6 km locker', t:'easy'},
+    {n:'Do', s:'Kurzer Tempolauf 5 km', t:'hard'},
+    {n:'Fr', s:'Ruhetag', t:'rest'},
+    {n:'Sa', s:'Long Run locker', t:'long'},
+    {n:'So', s:'Ruhetag / Spaziergang', t:'rest'}
+  ]
+};
+function renderTrainingPlan(){
+  const now = new Date();
+  const msPerDay = 1000*60*60*24;
+  const daysRemaining = Math.max(0, Math.ceil((RACE_DATE - now) / msPerDay));
+  const weeksRemaining = Math.max(0, Math.ceil(daysRemaining / 7));
+
+  document.getElementById('countdownNumber').innerHTML = `${daysRemaining}<span>Tage</span>`;
+  document.getElementById('countdownSub').textContent = `${weeksRemaining} Wochen \u00b7 Rennen: 01.11.2026`;
+
+  const phase = getPhase(weeksRemaining);
+  document.getElementById('phaseBadge').textContent = phase.label;
+
+  const longRunKm = getLongRunKm(weeksRemaining, phase.key);
+  document.getElementById('longRunVal').textContent = `${longRunKm} km`;
+
+  const monday = new Date(now);
+  const dow = (now.getDay() + 6) % 7;
+  monday.setDate(now.getDate() - dow);
+  const sunday = new Date(monday); sunday.setDate(monday.getDate()+6);
+  const fmt = d => d.toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit'});
+  document.getElementById('weekRange').textContent = `// ${fmt(monday)} \u2013 ${fmt(sunday)}`;
+
+  const template = DAY_TEMPLATES[phase.key];
+  const grid = document.getElementById('weekGrid');
+  grid.innerHTML = '';
+  template.forEach((day, i)=>{
+    const isToday = i === dow;
+    const sessionText = day.t === 'long' ? `Long Run ${longRunKm} km` : day.s;
+    const cell = document.createElement('div');
+    cell.className = 'day-cell' + (isToday ? ' today' : '');
+    cell.innerHTML = `
+      <div class="day-name${isToday?' today-label':''}">${day.n}${isToday?' &middot; heute':''}</div>
+      <div class="day-session">${sessionText}</div>
+      <div class="day-tag tag-${day.t}">${
+        day.t==='rest'?'Ruhe':day.t==='easy'?'Locker':day.t==='hard'?'Intensiv':'Long Run'
+      }</div>
+    `;
+    grid.appendChild(cell);
+  });
+}
+
+/* ---------------- Ring-Gauges ---------------- */
+function ringColor(pct){
+  if(pct===null) return '#2A2E3A';
+  if(pct < 40) return 'var(--hot)';
+  if(pct < 70) return 'var(--warn)';
+  return 'var(--good)';
+}
+function ringSVG(value, max){
+  const r = 30, c = 2*Math.PI*r;
+  if(value===null||value===undefined){
+    return `<svg width="76" height="76" viewBox="0 0 76 76">
+      <circle cx="38" cy="38" r="${r}" fill="none" stroke="#242833" stroke-width="7" stroke-dasharray="4 5"/>
+    </svg>`;
+  }
+  const pct = Math.max(0, Math.min(100, (value/max)*100));
+  const offset = c - (pct/100)*c;
+  const color = ringColor(pct);
+  return `<svg width="76" height="76" viewBox="0 0 76 76">
+    <circle cx="38" cy="38" r="${r}" fill="none" stroke="#242833" stroke-width="7"/>
+    <circle cx="38" cy="38" r="${r}" fill="none" stroke="${color}" stroke-width="7"
+      stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${offset}"
+      transform="rotate(-90 38 38)"/>
+  </svg>`;
+}
+function renderWellness(w){
+  const grid = document.getElementById('wellnessGrid');
+  grid.innerHTML = '';
+  WELLNESS_FIELDS.forEach(f=>{
+    const val = w ? w[f.key] : null;
+    const card = document.createElement('div');
+    card.className = 'ring-card';
+    card.innerHTML = `
+      <div style="position:relative;">
+        ${ringSVG(val, f.max)}
+        ${ (val!==null && val!==undefined) ? `<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif;font-weight:700;font-size:16px;color:var(--ink);">${val}</div>` : '' }
+      </div>
+      <div class="rlabel">${f.label}</div>
+      ${ (val===null||val===undefined) ? `<div class="ring-empty">kein Signal</div>` : (f.unit?`<div class="ring-empty">${f.unit}</div>`:'') }
+    `;
+    grid.appendChild(card);
+  });
+}
+
+/* ---------------- Aktivitäten ---------------- */
+function fmtDate(iso){
+  try{ return new Date(iso).toLocaleDateString('de-DE',{day:'2-digit',month:'short'}); }
+  catch(e){ return iso; }
+}
+function renderActivities(list){
+  const container = document.getElementById('activityList');
+  document.getElementById('actCount').textContent = list && list.length ? `// letzte ${list.length}` : '';
+  if(!list || !list.length){
+    container.innerHTML = '<div class="state-box">Keine Aktivitäten gefunden.</div>';
+    return;
+  }
+  container.innerHTML = '';
+  list.forEach(a=>{
+    const type = (a.type||'').toUpperCase();
+    const icon = ICONS[type] || ICONS.DEFAULT;
+    let statLine = '';
+    if(a.distance_km){
+      if(type === 'CYCLING'){
+        const kmh = a.duration_min ? (a.distance_km/(a.duration_min/60)).toFixed(1) : null;
+        statLine = `<b>${a.distance_km.toFixed(1)} km</b>${kmh?' &middot; '+kmh+' km/h':''}`;
+      } else {
+        const pace = a.duration_min ? (a.duration_min/a.distance_km) : null;
+        const paceStr = pace ? `${Math.floor(pace)}:${String(Math.round((pace%1)*60)).padStart(2,'0')} /km` : '';
+        statLine = `<b>${a.distance_km.toFixed(1)} km</b>${paceStr?' &middot; '+paceStr:''}`;
+      }
+    }
+    const hrPct = a.max_hr ? Math.min(100, Math.round((a.avg_hr/a.max_hr)*100)) : (a.avg_hr ? Math.min(100, Math.round(a.avg_hr/2)) : 0);
+    const row = document.createElement('div');
+    row.className = 'activity-card';
+    row.innerHTML = `
+      <div class="act-icon">${icon}</div>
+      <div class="act-main">
+        <div class="act-name">${a.name || type}</div>
+        <div class="act-date">${fmtDate(a.date)}${a.duration_min ? ' &middot; '+Math.round(a.duration_min)+' min' : ''}</div>
+      </div>
+      <div class="act-stats">
+        ${statLine}
+        ${a.avg_hr ? `<div>&Oslash; ${a.avg_hr} bpm${a.max_hr ? ' &middot; max '+a.max_hr : ''}</div>` : ''}
+        ${a.avg_hr ? `<div class="hr-bar"><i style="width:${hrPct}%"></i></div>` : ''}
+      </div>
+    `;
+    container.appendChild(row);
+  });
+}
+function renderWeekKmSummary(weekKm, weekSessions){
+  document.getElementById('weekKmSummary').textContent =
+    (weekKm!==undefined && weekKm!==null) ? `Bisher ${weekKm.toFixed(1)} km \u00b7 ${weekSessions||0} Einheiten` : '';
+}
+
+/* ---------------- Laden aus data.json (kein Claude, keine Tokens) ---------------- */
+async function loadDashboard(){
+  const btn = document.getElementById('refreshBtn');
+  const label = document.getElementById('refreshLabel');
+  const meta = document.getElementById('syncMeta');
+  btn.disabled = true;
+  btn.classList.add('loading');
+  label.textContent = 'Lade\u2026';
+
+  try{
+    const resp = await fetch(DATA_URL + '?t=' + Date.now(), { cache: 'no-store' });
+    if(!resp.ok) throw new Error(`data.json nicht gefunden (${resp.status}). Läuft die GitHub Action schon?`);
+    const parsed = await resp.json();
+
+    renderWeekKmSummary(parsed.week_km, parsed.week_sessions);
+    renderWellness(parsed.wellness);
+    renderActivities(parsed.activities);
+
+    const gen = parsed.generated_at ? new Date(parsed.generated_at) : new Date();
+    meta.textContent = 'Letzter Sync: ' + gen.toLocaleString('de-DE');
+  }catch(err){
+    console.error(err);
+    meta.textContent = 'Kein Sync gefunden';
+    document.getElementById('activityList').innerHTML =
+      `<div class="state-box error">${err.message}</div>`;
+  }finally{
+    btn.disabled = false;
+    btn.classList.remove('loading');
+    label.textContent = 'Neu laden';
+  }
+}
+
+document.getElementById('refreshBtn').addEventListener('click', loadDashboard);
+window.addEventListener('DOMContentLoaded', ()=>{
+  renderTrainingPlan();
+  loadDashboard();
+});
+</script>
+</body>
+</html>

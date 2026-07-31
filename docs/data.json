@@ -1,14 +1,65 @@
 {
-  "generated_at": null,
-  "week_km": 0,
-  "week_sessions": 0,
-  "week_calories": 0,
+  "generated_at": "2026-07-31T00:00:55.062740Z",
+  "week_km": 12.1,
+  "week_sessions": 2,
+  "week_calories": 819.0,
   "wellness": {
-    "body_battery": null,
+    "body_battery": 1,
     "sleep_score": null,
     "hrv": null,
-    "stress_avg": null,
+    "stress_avg": 40,
     "readiness": null
   },
-  "activities": []
+  "activities": [
+    {
+      "name": "Freudenberg Laufen",
+      "type": "RUNNING",
+      "date": "2026-07-30",
+      "distance_km": 6.01,
+      "duration_min": 45.3,
+      "avg_hr": 165.0,
+      "max_hr": 200.0,
+      "calories": 407.0
+    },
+    {
+      "name": "Freudenberg - Intervalle - 5x3",
+      "type": "RUNNING",
+      "date": "2026-07-28",
+      "distance_km": 6.13,
+      "duration_min": 47.5,
+      "avg_hr": 167.0,
+      "max_hr": 206.0,
+      "calories": 412.0
+    },
+    {
+      "name": "Flattach Radfahren",
+      "type": "CYCLING",
+      "date": "2026-07-23",
+      "distance_km": 17.0,
+      "duration_min": 97.1,
+      "avg_hr": 129.0,
+      "max_hr": 182.0,
+      "calories": 526.0
+    },
+    {
+      "name": "Rangersdorf Wandern",
+      "type": "HIKING",
+      "date": "2026-07-22",
+      "distance_km": 10.28,
+      "duration_min": 209.6,
+      "avg_hr": 115.0,
+      "max_hr": 165.0,
+      "calories": 826.0
+    },
+    {
+      "name": "Rangersdorf Wandern",
+      "type": "HIKING",
+      "date": "2026-07-22",
+      "distance_km": 9.65,
+      "duration_min": 268.5,
+      "avg_hr": 136.0,
+      "max_hr": 182.0,
+      "calories": 1442.0
+    }
+  ]
 }

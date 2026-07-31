@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-31T10:09:07.617505Z",
+  "generated_at": "2026-07-31T15:34:23.653093Z",
   "week_km": 12.1,
   "week_sessions": 2,
   "week_calories": 819.0,
@@ -7,8 +7,8 @@
     "body_battery": 39,
     "sleep_score": 35,
     "hrv": 29,
-    "stress_avg": 29,
-    "readiness": 36
+    "stress_avg": 32,
+    "readiness": 41
   },
   "activities": [
     {

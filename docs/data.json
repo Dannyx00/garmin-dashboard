@@ -1,16 +1,26 @@
 {
-  "generated_at": "2026-08-01T15:43:17.433658Z",
-  "week_km": 12.1,
-  "week_sessions": 2,
-  "week_calories": 819.0,
+  "generated_at": "2026-08-01T20:14:16.032479Z",
+  "week_km": 32.2,
+  "week_sessions": 3,
+  "week_calories": 2155.0,
   "wellness": {
     "body_battery": 74,
     "sleep_score": 75,
     "hrv": 46,
-    "stress_avg": 18,
-    "readiness": 60
+    "stress_avg": 25,
+    "readiness": 12
   },
   "activities": [
+    {
+      "name": "Freudenberg Laufen",
+      "type": "RUNNING",
+      "date": "2026-08-01",
+      "distance_km": 20.02,
+      "duration_min": 148.8,
+      "avg_hr": 171.0,
+      "max_hr": 193.0,
+      "calories": 1336.0
+    },
     {
       "name": "Freudenberg Laufen",
       "type": "RUNNING",
@@ -50,16 +60,6 @@
       "avg_hr": 115.0,
       "max_hr": 165.0,
       "calories": 826.0
-    },
-    {
-      "name": "Rangersdorf Wandern",
-      "type": "HIKING",
-      "date": "2026-07-22",
-      "distance_km": 9.65,
-      "duration_min": 268.5,
-      "avg_hr": 136.0,
-      "max_hr": 182.0,
-      "calories": 1442.0
     }
   ]
 }

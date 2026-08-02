@@ -66,6 +66,20 @@ h2.section-title .n{font-family:'JetBrains Mono',monospace;font-size:11px;color:
 
 .plan-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:20px;margin-bottom:24px;box-shadow:var(--shadow);}
 .plan-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:18px;}
+.week-nav{display:flex;align-items:center;gap:8px;}
+.week-nav-btn{
+  width:32px;height:32px;border-radius:50%;background:var(--card-2);border:1px solid var(--border);color:var(--ink);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .12s ease, border-color .12s ease, transform .1s ease;
+}
+.week-nav-btn:hover{background:var(--primary-soft);border-color:var(--primary);color:var(--primary);}
+.week-nav-btn:active{transform:scale(0.92);}
+.week-nav-btn:focus-visible{outline:2px solid var(--primary);outline-offset:2px;}
+.week-nav-today{
+  font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--primary);background:var(--primary-soft);
+  border:1px solid rgba(91,124,250,0.35);padding:6px 12px;border-radius:99px;cursor:pointer;transition:opacity .15s ease;
+}
+.week-nav-today.hidden{display:none;}
+.week-grid-clip{overflow:hidden;}
 .plan-longrun{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink-soft);}
 .plan-longrun b{color:var(--good);font-family:'Outfit',sans-serif;font-size:16px;}
 .week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;}
@@ -180,13 +194,24 @@ table.splits td{padding:6px 4px;border-bottom:1px solid var(--border);}
     <div class="phase-badge" id="phaseBadge">&mdash;</div>
   </div>
 
-  <h2 class="section-title">Diese Woche <span class="n" id="weekRange"></span></h2>
+  <h2 class="section-title"><span id="weekTitle">Diese Woche</span> <span class="n" id="weekRange"></span></h2>
   <div class="plan-card">
     <div class="plan-top">
-      <div class="plan-longrun">Long Run diese Woche &middot; <b id="longRunVal">&mdash; km</b></div>
-      <div class="plan-longrun" id="weekKmSummary"></div>
+      <div class="week-nav">
+        <button class="week-nav-btn" id="weekPrevBtn" aria-label="Vorherige Woche">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="week-nav-btn" id="weekNextBtn" aria-label="Nächste Woche">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="week-nav-today hidden" id="weekTodayBtn">Zur aktuellen Woche</button>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px;">
+        <div class="plan-longrun">Long Run <span id="longRunLabel">diese Woche</span> &middot; <b id="longRunVal">&mdash; km</b></div>
+        <div class="plan-longrun" id="weekKmSummary"></div>
+      </div>
     </div>
-    <div class="week-grid" id="weekGrid"></div>
+    <div class="week-grid-clip"><div class="week-grid" id="weekGrid"></div></div>
   </div>
 
   <h2 class="section-title">Auswertung <span class="n">// letztes Training</span></h2>
@@ -301,46 +326,49 @@ const DAY_TEMPLATES = {
   ]
 };
 
-function mondayOf(date){
-  const d = new Date(date);
-  const dow = (d.getDay() + 6) % 7;
-  d.setDate(d.getDate() - dow);
-  d.setHours(0,0,0,0);
-  return d;
-}
-function isoDate(d){
-  const y = d.getFullYear();
-  const m = String(d.getMonth()+1).padStart(2,'0');
-  const day = String(d.getDate()).padStart(2,'0');
-  return `${y}-${m}-${day}`;
+let PLAN_DATA = null;   // gecachter Inhalt von training_plan.json
+let WEEK_OFFSET = 0;    // 0 = aktuelle Woche, -1 = letzte Woche, +1 = nächste Woche
+let DISPLAYED_WEEK_DAYS = null; // Tage der gerade angezeigten (ggf. navigierten) Woche
+
+async function loadPlanData(){
+  try{
+    const resp = await fetch(PLAN_URL + '?t=' + Date.now(), { cache: 'no-store' });
+    if(resp.ok) PLAN_DATA = await resp.json();
+  }catch(e){ /* kein individueller Plan hinterlegt -- kein Problem, Fallback greift */ }
 }
 
-async function renderTrainingPlan(){
+/* Hero/Countdown -- bezieht sich immer auf das echte heutige Datum, unabhängig von der Wochen-Navigation */
+function renderHero(){
   const now = new Date();
   const msPerDay = 1000*60*60*24;
   const daysRemaining = Math.max(0, Math.ceil((RACE_DATE - now) / msPerDay));
   const weeksRemaining = Math.max(0, Math.ceil(daysRemaining / 7));
-
   document.getElementById('countdownNumber').innerHTML = `${daysRemaining}<span>Tage</span>`;
   document.getElementById('countdownSub').textContent = `${weeksRemaining} Wochen \u00b7 Rennen: 01.11.2026`;
+}
 
-  const monday = mondayOf(now);
+/* Wochen-Karte -- rendert die Woche mit gegebenem Offset zur aktuellen Woche */
+function renderWeekCard(offset){
+  const now = new Date();
+  const msPerDay = 1000*60*60*24;
+  const currentMonday = mondayOf(now);
+  const monday = new Date(currentMonday); monday.setDate(currentMonday.getDate() + offset*7);
   const sunday = new Date(monday); sunday.setDate(monday.getDate()+6);
   const fmt = d => d.toLocaleDateString('de-DE',{day:'2-digit',month:'2-digit'});
+
   document.getElementById('weekRange').textContent = `// ${fmt(monday)} \u2013 ${fmt(sunday)}`;
+  document.getElementById('weekTitle').textContent =
+    offset === 0 ? 'Diese Woche' : offset === -1 ? 'Letzte Woche' : offset === 1 ? 'Nächste Woche' : (offset < 0 ? `Vor ${-offset} Wochen` : `In ${offset} Wochen`);
+  document.getElementById('longRunLabel').textContent =
+    offset === 0 ? 'diese Woche' : offset < 0 ? 'damals' : 'geplant';
+  document.getElementById('weekTodayBtn').classList.toggle('hidden', offset === 0);
 
-  let customWeek = null;
-  try{
-    const resp = await fetch(PLAN_URL + '?t=' + Date.now(), { cache: 'no-store' });
-    if(resp.ok){
-      const plan = await resp.json();
-      customWeek = (plan.weeks || {})[isoDate(monday)] || null;
-    }
-  }catch(e){ /* kein individueller Plan hinterlegt -- kein Problem, Fallback greift */ }
+  const customWeek = PLAN_DATA ? (PLAN_DATA.weeks || {})[isoDate(monday)] : null;
 
-  const dow = (now.getDay() + 6) % 7;
+  const daysRemainingForPhase = Math.max(0, Math.ceil((RACE_DATE - monday) / msPerDay));
+  const weeksRemainingForPhase = Math.max(0, Math.ceil(daysRemainingForPhase / 7));
+
   let dayList, longRunKm, phaseLabel;
-
   if(customWeek){
     phaseLabel = customWeek.phase_label || 'Eigener Plan';
     longRunKm = customWeek.long_run_km;
@@ -350,24 +378,27 @@ async function renderTrainingPlan(){
       return {n, s:day.title, t:day.type, d:day.details};
     });
   } else {
-    const phase = getPhase(weeksRemaining);
+    const phase = getPhase(weeksRemainingForPhase);
     phaseLabel = phase.label + ' (automatisch berechnet)';
-    longRunKm = getLongRunKm(weeksRemaining, phase.key);
+    longRunKm = getLongRunKm(weeksRemainingForPhase, phase.key);
     dayList = DAY_TEMPLATES[phase.key];
   }
 
-  document.getElementById('phaseBadge').textContent = phaseLabel;
-  document.getElementById('longRunVal').textContent = `${longRunKm} km`;
+  document.getElementById('phaseBadge').textContent = offset === 0 ? phaseLabel : phaseLabel + ` \u00b7 ${document.getElementById('weekTitle').textContent}`;
+  document.getElementById('longRunVal').textContent = longRunKm != null ? `${longRunKm} km` : '–';
+  document.getElementById('weekKmSummary').textContent = ''; // wird bei offset 0 separat von den Sync-Daten befüllt
 
-  CURRENT_WEEK_DAYS = dayList.map((day,i)=>{
+  const dow = (now.getDay() + 6) % 7;
+  DISPLAYED_WEEK_DAYS = dayList.map((day,i)=>{
     const d = new Date(monday); d.setDate(monday.getDate()+i);
     return {...day, date: d};
   });
+  if(offset === 0) CURRENT_WEEK_DAYS = DISPLAYED_WEEK_DAYS;
 
   const grid = document.getElementById('weekGrid');
   grid.innerHTML = '';
-  CURRENT_WEEK_DAYS.forEach((day, i)=>{
-    const isToday = i === dow;
+  DISPLAYED_WEEK_DAYS.forEach((day, i)=>{
+    const isToday = offset === 0 && i === dow;
     const sessionText = day.t === 'long' && !customWeek ? `Long Run ${longRunKm} km` : day.s;
     const cell = document.createElement('button');
     cell.type = 'button';
@@ -380,6 +411,51 @@ async function renderTrainingPlan(){
     cell.addEventListener('click', ()=> openDayModal(day, sessionText, isToday));
     grid.appendChild(cell);
   });
+
+  // Ist-km diese Woche nur bei Offset 0 sinnvoll (kommt aus den Sync-Daten)
+  if(offset === 0 && LAST_WEEK_KM_TEXT) document.getElementById('weekKmSummary').textContent = LAST_WEEK_KM_TEXT;
+}
+
+/* Swipe-Animation beim Wechsel der Woche */
+function slideToWeek(direction){
+  const grid = document.getElementById('weekGrid');
+  const dist = 26;
+  grid.style.transition = 'transform 0.18s ease, opacity 0.18s ease';
+  grid.style.transform = `translateX(${direction === 1 ? -dist : dist}px)`;
+  grid.style.opacity = '0';
+  setTimeout(()=>{
+    WEEK_OFFSET += direction;
+    renderWeekCard(WEEK_OFFSET);
+    grid.style.transition = 'none';
+    grid.style.transform = `translateX(${direction === 1 ? dist : -dist}px)`;
+    grid.style.opacity = '0';
+    void grid.offsetWidth; // reflow erzwingen
+    grid.style.transition = 'transform 0.18s ease, opacity 0.18s ease';
+    grid.style.transform = 'translateX(0)';
+    grid.style.opacity = '1';
+  }, 180);
+}
+function goToWeek(offset){
+  if(offset === WEEK_OFFSET) return;
+  slideToWeek(offset > WEEK_OFFSET ? 1 : -1);
+}
+
+document.getElementById('weekPrevBtn').addEventListener('click', ()=> slideToWeek(-1));
+document.getElementById('weekNextBtn').addEventListener('click', ()=> slideToWeek(1));
+document.getElementById('weekTodayBtn').addEventListener('click', ()=> goToWeek(0));
+
+function mondayOf(date){
+  const d = new Date(date);
+  const dow = (d.getDay() + 6) % 7;
+  d.setDate(d.getDate() - dow);
+  d.setHours(0,0,0,0);
+  return d;
+}
+function isoDate(d){
+  const y = d.getFullYear();
+  const m = String(d.getMonth()+1).padStart(2,'0');
+  const day = String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${day}`;
 }
 
 function openDayModal(day, sessionText, isToday){
@@ -587,9 +663,10 @@ function openActivityModal(a, type, icon){
   `);
 }
 
+let LAST_WEEK_KM_TEXT = '';
 function renderWeekKmSummary(weekKm, weekSessions){
-  document.getElementById('weekKmSummary').textContent =
-    (weekKm!==undefined && weekKm!==null) ? `Bisher ${weekKm.toFixed(1)} km \u00b7 ${weekSessions||0} Einheiten` : '';
+  LAST_WEEK_KM_TEXT = (weekKm!==undefined && weekKm!==null) ? `Bisher ${weekKm.toFixed(1)} km \u00b7 ${weekSessions||0} Einheiten` : '';
+  if(WEEK_OFFSET === 0) document.getElementById('weekKmSummary').textContent = LAST_WEEK_KM_TEXT;
 }
 
 /* ---------------- Laden aus data.json ---------------- */
@@ -625,7 +702,9 @@ async function loadDashboard(){
 }
 
 window.addEventListener('DOMContentLoaded', async ()=>{
-  await renderTrainingPlan();
+  renderHero();
+  await loadPlanData();
+  renderWeekCard(WEEK_OFFSET);
   await loadDashboard();
 });
 </script>

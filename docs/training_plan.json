@@ -1,0 +1,728 @@
+{
+  "_hinweis": "Schlüssel = Montag der jeweiligen Woche (YYYY-MM-DD). Marathon-Trainingsplan Sub-4h, herzfrequenzbasiert (Garmin FR265 + Polar H10), 3-4 Einheiten/Woche.",
+  "goal_time": "Sub-4:00",
+  "race_date": "2026-11-01",
+  "zone_legend": {
+    "B1": "B1, sehr locker/Regeneration",
+    "B2": "B2, Grundlagenausdauer/lockeres Tempo",
+    "B3": "B3, zügig/Marathontempo-Bereich",
+    "B4": "B4, Schwellentempo, intensiv",
+    "B5": "B5, sehr hart/nahe VO2max"
+  },
+  "weeks": {
+    "2026-07-06": {
+      "phase_label": "Basisaufbau",
+      "long_run_km": 16,
+      "week_km_target": 30,
+      "days": {
+        "Mo": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Vollständige Erholung, ggf. Mobility/Stretching."
+        },
+        "Di": {
+          "title": "Intervalle",
+          "type": "hard",
+          "details": "5×3 Min B3-B4 / 2 Min B1 Trabpause."
+        },
+        "Mi": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Regeneration."
+        },
+        "Do": {
+          "title": "Ruhiger Lauf 6 km, B1-B2",
+          "type": "easy",
+          "details": "Lockerer Dauerlauf, 6 km. Zielbereich: B2, Grundlagenausdauer/lockeres Tempo."
+        },
+        "Fr": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Regeneration vor dem Long Run."
+        },
+        "Sa": {
+          "title": "Long Run 16 km, B2",
+          "type": "long",
+          "details": "Langer Lauf über 16 km. Geplanter Wochenumfang gesamt: 30 km."
+        },
+        "So": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Vollständige Erholung."
+        }
+      }
+    },
+    "2026-07-13": {
+      "phase_label": "Basisaufbau",
+      "long_run_km": 18,
+      "week_km_target": 36,
+      "days": {
+        "Mo": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Vollständige Erholung, ggf. Mobility/Stretching."
+        },
+        "Di": {
+          "title": "Tempolauf",
+          "type": "hard",
+          "details": "20 Minuten durchgehend im Bereich B3."
+        },
+        "Mi": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Regeneration."
+        },
+        "Do": {
+          "title": "Ruhiger Lauf 8 km, B1-B2",
+          "type": "easy",
+          "details": "Lockerer Dauerlauf, 8 km. Zielbereich: B2, Grundlagenausdauer/lockeres Tempo."
+        },
+        "Fr": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Regeneration vor dem Long Run."
+        },
+        "Sa": {
+          "title": "Long Run 18 km, B2",
+          "type": "long",
+          "details": "Langer Lauf über 18 km. Geplanter Wochenumfang gesamt: 36 km."
+        },
+        "So": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Vollständige Erholung."
+        }
+      }
+    },
+    "2026-07-20": {
+      "phase_label": "Basisaufbau",
+      "long_run_km": 20,
+      "week_km_target": 40,
+      "days": {
+        "Mo": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Vollständige Erholung, ggf. Mobility/Stretching."
+        },
+        "Di": {
+          "title": "Intervalle",
+          "type": "hard",
+          "details": "6×800 m B4 / 400 m Trabpause."
+        },
+        "Mi": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Regeneration."
+        },
+        "Do": {
+          "title": "Ruhiger Lauf 8 km, B1-B2",
+          "type": "easy",
+          "details": "Lockerer Dauerlauf, 8 km. Zielbereich: B2, Grundlagenausdauer/lockeres Tempo."
+        },
+        "Fr": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Regeneration vor dem Long Run."
+        },
+        "Sa": {
+          "title": "Long Run 20 km, B2 (letzte 3 km B3)",
+          "type": "long",
+          "details": "Langer Lauf über 20 km. Geplanter Wochenumfang gesamt: 40 km."
+        },
+        "So": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Vollständige Erholung."
+        }
+      }
+    },
+    "2026-07-27": {
+      "phase_label": "Basisaufbau · Deload-Woche",
+      "long_run_km": 15,
+      "week_km_target": 28,
+      "days": {
+        "Mo": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Vollständige Erholung, ggf. Mobility/Stretching."
+        },
+        "Di": {
+          "title": "Tempolauf",
+          "type": "hard",
+          "details": "15 Minuten im Bereich B3."
+        },
+        "Mi": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Regeneration."
+        },
+        "Do": {
+          "title": "Ruhiger Lauf 6 km, B1-B2",
+          "type": "easy",
+          "details": "Lockerer Dauerlauf, 6 km. Zielbereich: B2, Grundlagenausdauer/lockeres Tempo."
+        },
+        "Fr": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Regeneration vor dem Long Run."
+        },
+        "Sa": {
+          "title": "Long Run 15 km, B2 (Deload)",
+          "type": "long",
+          "details": "Langer Lauf über 15 km. Deload-Woche: bewusst reduzierter Umfang zur Regeneration. Geplanter Wochenumfang gesamt: 28 km."
+        },
+        "So": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Vollständige Erholung."
+        }
+      }
+    },
+    "2026-08-03": {
+      "phase_label": "Grundlagen/Tempo",
+      "long_run_km": 22,
+      "week_km_target": 42,
+      "days": {
+        "Mo": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Vollständige Erholung, ggf. Mobility/Stretching."
+        },
+        "Di": {
+          "title": "Tempolauf",
+          "type": "hard",
+          "details": "25 Minuten im Bereich B3."
+        },
+        "Mi": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Regeneration."
+        },
+        "Do": {
+          "title": "Ruhiger Lauf 8 km, B1-B2",
+          "type": "easy",
+          "details": "Lockerer Dauerlauf, 8 km. Zielbereich: B2, Grundlagenausdauer/lockeres Tempo."
+        },
+        "Fr": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Regeneration vor dem Long Run."
+        },
+        "Sa": {
+          "title": "Long Run 22 km, B2",
+          "type": "long",
+          "details": "Langer Lauf über 22 km. Geplanter Wochenumfang gesamt: 42 km."
+        },
+        "So": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Vollständige Erholung."
+        }
+      }
+    },
+    "2026-08-10": {
+      "phase_label": "Grundlagen/Tempo",
+      "long_run_km": 24,
+      "week_km_target": 44,
+      "days": {
+        "Mo": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Vollständige Erholung, ggf. Mobility/Stretching."
+        },
+        "Di": {
+          "title": "Intervalle",
+          "type": "hard",
+          "details": "6×1000 m B4 / 400 m Trabpause."
+        },
+        "Mi": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Regeneration."
+        },
+        "Do": {
+          "title": "Ruhiger Lauf 8 km, B1-B2",
+          "type": "easy",
+          "details": "Lockerer Dauerlauf, 8 km. Zielbereich: B2, Grundlagenausdauer/lockeres Tempo."
+        },
+        "Fr": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Regeneration vor dem Long Run."
+        },
+        "Sa": {
+          "title": "Long Run 24 km, B2 (letzte 5 km B3)",
+          "type": "long",
+          "details": "Langer Lauf über 24 km. Geplanter Wochenumfang gesamt: 44 km."
+        },
+        "So": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Vollständige Erholung."
+        }
+      }
+    },
+    "2026-08-17": {
+      "phase_label": "Grundlagen/Tempo · Deload-Woche",
+      "long_run_km": 18,
+      "week_km_target": 34,
+      "days": {
+        "Mo": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Vollständige Erholung, ggf. Mobility/Stretching."
+        },
+        "Di": {
+          "title": "Tempolauf",
+          "type": "hard",
+          "details": "20 Minuten im Bereich B3."
+        },
+        "Mi": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Regeneration."
+        },
+        "Do": {
+          "title": "Ruhiger Lauf 8 km, B1-B2",
+          "type": "easy",
+          "details": "Lockerer Dauerlauf, 8 km. Zielbereich: B2, Grundlagenausdauer/lockeres Tempo."
+        },
+        "Fr": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Regeneration vor dem Long Run."
+        },
+        "Sa": {
+          "title": "Long Run 18 km, B2 (Deload)",
+          "type": "long",
+          "details": "Langer Lauf über 18 km. Deload-Woche: bewusst reduzierter Umfang zur Regeneration. Geplanter Wochenumfang gesamt: 34 km."
+        },
+        "So": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Vollständige Erholung."
+        }
+      }
+    },
+    "2026-08-24": {
+      "phase_label": "Grundlagen/Tempo",
+      "long_run_km": 27,
+      "week_km_target": 48,
+      "days": {
+        "Mo": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Vollständige Erholung, ggf. Mobility/Stretching."
+        },
+        "Di": {
+          "title": "Tempolauf",
+          "type": "hard",
+          "details": "30 Minuten im Bereich B3."
+        },
+        "Mi": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Regeneration."
+        },
+        "Do": {
+          "title": "Ruhiger Lauf 10 km, B1-B2",
+          "type": "easy",
+          "details": "Lockerer Dauerlauf, 10 km. Zielbereich: B2, Grundlagenausdauer/lockeres Tempo."
+        },
+        "Fr": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Regeneration vor dem Long Run."
+        },
+        "Sa": {
+          "title": "Long Run 27 km, B2",
+          "type": "long",
+          "details": "Langer Lauf über 27 km. Geplanter Wochenumfang gesamt: 48 km."
+        },
+        "So": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Vollständige Erholung."
+        }
+      }
+    },
+    "2026-08-31": {
+      "phase_label": "Grundlagen/Tempo",
+      "long_run_km": 30,
+      "week_km_target": 52,
+      "days": {
+        "Mo": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Vollständige Erholung, ggf. Mobility/Stretching."
+        },
+        "Di": {
+          "title": "Intervalle",
+          "type": "hard",
+          "details": "5×1200 m B4-B5 / 400 m Trabpause."
+        },
+        "Mi": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Regeneration."
+        },
+        "Do": {
+          "title": "Ruhiger Lauf 10 km, B1-B2",
+          "type": "easy",
+          "details": "Lockerer Dauerlauf, 10 km. Zielbereich: B2, Grundlagenausdauer/lockeres Tempo."
+        },
+        "Fr": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Regeneration vor dem Long Run."
+        },
+        "Sa": {
+          "title": "Long Run 30 km, B2 (letzte 8 km B3)",
+          "type": "long",
+          "details": "Langer Lauf über 30 km. Geplanter Wochenumfang gesamt: 52 km."
+        },
+        "So": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Vollständige Erholung."
+        }
+      }
+    },
+    "2026-09-07": {
+      "phase_label": "Marathon-spezifisch · Deload-Woche",
+      "long_run_km": 20,
+      "week_km_target": 38,
+      "days": {
+        "Mo": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Vollständige Erholung, ggf. Mobility/Stretching."
+        },
+        "Di": {
+          "title": "Tempolauf",
+          "type": "hard",
+          "details": "20 Minuten im Bereich B3."
+        },
+        "Mi": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Regeneration."
+        },
+        "Do": {
+          "title": "Ruhiger Lauf 8 km, B1-B2",
+          "type": "easy",
+          "details": "Lockerer Dauerlauf, 8 km. Zielbereich: B2, Grundlagenausdauer/lockeres Tempo."
+        },
+        "Fr": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Regeneration vor dem Long Run."
+        },
+        "Sa": {
+          "title": "Long Run 20 km, B2 (Deload)",
+          "type": "long",
+          "details": "Langer Lauf über 20 km. Deload-Woche: bewusst reduzierter Umfang zur Regeneration. Geplanter Wochenumfang gesamt: 38 km."
+        },
+        "So": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Vollständige Erholung."
+        }
+      }
+    },
+    "2026-09-14": {
+      "phase_label": "Marathon-spezifisch",
+      "long_run_km": 28,
+      "week_km_target": 48,
+      "days": {
+        "Mo": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Vollständige Erholung, ggf. Mobility/Stretching."
+        },
+        "Di": {
+          "title": "Tempolauf",
+          "type": "hard",
+          "details": "25 Minuten im Bereich B3-B4."
+        },
+        "Mi": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Regeneration."
+        },
+        "Do": {
+          "title": "Ruhiger Lauf 10 km, B1-B2",
+          "type": "easy",
+          "details": "Lockerer Dauerlauf, 10 km. Zielbereich: B2, Grundlagenausdauer/lockeres Tempo."
+        },
+        "Fr": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Regeneration vor dem Long Run."
+        },
+        "Sa": {
+          "title": "Long Run 28 km, B2 (letzte 6 km B3)",
+          "type": "long",
+          "details": "Langer Lauf über 28 km. Geplanter Wochenumfang gesamt: 48 km."
+        },
+        "So": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Vollständige Erholung."
+        }
+      }
+    },
+    "2026-09-21": {
+      "phase_label": "Marathon-spezifisch · Peak-Woche",
+      "long_run_km": 32,
+      "week_km_target": 54,
+      "days": {
+        "Mo": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Vollständige Erholung, ggf. Mobility/Stretching."
+        },
+        "Di": {
+          "title": "Intervalle",
+          "type": "hard",
+          "details": "6×1000 m B4."
+        },
+        "Mi": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Regeneration."
+        },
+        "Do": {
+          "title": "Ruhiger Lauf 10 km, B1-B2",
+          "type": "easy",
+          "details": "Lockerer Dauerlauf, 10 km. Zielbereich: B2, Grundlagenausdauer/lockeres Tempo."
+        },
+        "Fr": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Regeneration vor dem Long Run."
+        },
+        "Sa": {
+          "title": "Long Run 32 km, B2 (PEAK, letzte 10 km B3)",
+          "type": "long",
+          "details": "Langer Lauf über 32 km. Peak-Long-Run der gesamten Vorbereitung (32 km). Geplanter Wochenumfang gesamt: 54 km."
+        },
+        "So": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Vollständige Erholung."
+        }
+      }
+    },
+    "2026-09-28": {
+      "phase_label": "Marathon-spezifisch · Deload-Woche",
+      "long_run_km": 20,
+      "week_km_target": 38,
+      "days": {
+        "Mo": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Vollständige Erholung, ggf. Mobility/Stretching."
+        },
+        "Di": {
+          "title": "Tempolauf",
+          "type": "hard",
+          "details": "20 Minuten im Bereich B3."
+        },
+        "Mi": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Regeneration."
+        },
+        "Do": {
+          "title": "Ruhiger Lauf 8 km, B1-B2",
+          "type": "easy",
+          "details": "Lockerer Dauerlauf, 8 km. Zielbereich: B2, Grundlagenausdauer/lockeres Tempo."
+        },
+        "Fr": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Regeneration vor dem Long Run."
+        },
+        "Sa": {
+          "title": "Long Run 20 km, B2 (Deload)",
+          "type": "long",
+          "details": "Langer Lauf über 20 km. Deload-Woche: bewusst reduzierter Umfang zur Regeneration. Geplanter Wochenumfang gesamt: 38 km."
+        },
+        "So": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Vollständige Erholung."
+        }
+      }
+    },
+    "2026-10-05": {
+      "phase_label": "Marathon-spezifisch",
+      "long_run_km": 30,
+      "week_km_target": 48,
+      "days": {
+        "Mo": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Vollständige Erholung, ggf. Mobility/Stretching."
+        },
+        "Di": {
+          "title": "Tempolauf",
+          "type": "hard",
+          "details": "20 Minuten im Bereich B3-B4."
+        },
+        "Mi": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Regeneration."
+        },
+        "Do": {
+          "title": "Ruhiger Lauf 8 km, B1-B2",
+          "type": "easy",
+          "details": "Lockerer Dauerlauf, 8 km. Zielbereich: B2, Grundlagenausdauer/lockeres Tempo."
+        },
+        "Fr": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Regeneration vor dem Long Run."
+        },
+        "Sa": {
+          "title": "Long Run 30 km, B2 (letzte 12 km B3)",
+          "type": "long",
+          "details": "Langer Lauf über 30 km. Geplanter Wochenumfang gesamt: 48 km."
+        },
+        "So": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Vollständige Erholung."
+        }
+      }
+    },
+    "2026-10-12": {
+      "phase_label": "Taper",
+      "long_run_km": 20,
+      "week_km_target": 34,
+      "days": {
+        "Mo": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Vollständige Erholung, ggf. Mobility/Stretching."
+        },
+        "Di": {
+          "title": "Tempolauf",
+          "type": "hard",
+          "details": "15 Minuten im Bereich B3."
+        },
+        "Mi": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Regeneration."
+        },
+        "Do": {
+          "title": "Ruhiger Lauf 6 km, B1-B2",
+          "type": "easy",
+          "details": "Lockerer Dauerlauf, 6 km. Zielbereich: B2, Grundlagenausdauer/lockeres Tempo."
+        },
+        "Fr": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Regeneration vor dem Long Run."
+        },
+        "Sa": {
+          "title": "Long Run 20 km, B2 (Taper)",
+          "type": "long",
+          "details": "Langer Lauf über 20 km. Taper beginnt: Umfang sinkt, Intensität bleibt kurz erhalten. Geplanter Wochenumfang gesamt: 34 km."
+        },
+        "So": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Vollständige Erholung."
+        }
+      }
+    },
+    "2026-10-19": {
+      "phase_label": "Taper",
+      "long_run_km": 14,
+      "week_km_target": 24,
+      "days": {
+        "Mo": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Vollständige Erholung, ggf. Mobility/Stretching."
+        },
+        "Di": {
+          "title": "Tempolauf",
+          "type": "hard",
+          "details": "10 Minuten im Bereich B3, locker."
+        },
+        "Mi": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Regeneration."
+        },
+        "Do": {
+          "title": "Ruhiger Lauf 6 km, B1-B2",
+          "type": "easy",
+          "details": "Lockerer Dauerlauf, 6 km. Zielbereich: B2, Grundlagenausdauer/lockeres Tempo."
+        },
+        "Fr": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Regeneration vor dem Long Run."
+        },
+        "Sa": {
+          "title": "Long Run 14 km, B2 (Taper)",
+          "type": "long",
+          "details": "Langer Lauf über 14 km. Letzter längerer Lauf vor dem Rennen. Geplanter Wochenumfang gesamt: 24 km."
+        },
+        "So": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Vollständige Erholung."
+        }
+      }
+    },
+    "2026-10-26": {
+      "phase_label": "Taper · Race Week",
+      "long_run_km": null,
+      "week_km_target": null,
+      "days": {
+        "Mo": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Vollständige Erholung."
+        },
+        "Di": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Vollständige Erholung."
+        },
+        "Mi": {
+          "title": "Shakeout 6 km",
+          "type": "easy",
+          "details": "Lockerer Shakeout-Lauf, 6 km. Zielbereich: B1, sehr locker/Regeneration bis B2, Grundlagenausdauer/lockeres Tempo."
+        },
+        "Do": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Vollständige Erholung."
+        },
+        "Fr": {
+          "title": "4 km locker + Steigerungen",
+          "type": "easy",
+          "details": "4 km sehr locker, dazu ein paar kurze Steigerungen zur Aktivierung."
+        },
+        "Sa": {
+          "title": "Ruhetag",
+          "type": "rest",
+          "details": "Beine hochlegen, Ausrüstung & Verpflegung für den Renntag vorbereiten."
+        },
+        "So": {
+          "title": "MARATHON – RACE DAY",
+          "type": "race",
+          "details": "Zieltermin: Sonntag, 1. November 2026. Zielzeit: Sub-4:00 Stunden. Viel Erfolg, Daniel!"
+        }
+      }
+    }
+  }
+}

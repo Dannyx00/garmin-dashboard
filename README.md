@@ -58,8 +58,34 @@ Sync wieder.
 
 - **Marathon-Datum ändern**: in `docs/index.html` die Zeile
   `const RACE_DATE = new Date("2026-11-01T23:59:59");` anpassen.
-- **Trainingsplan-Logik ändern**: Funktionen `getPhase`, `getLongRunKm` und
-  `DAY_TEMPLATES` in `docs/index.html` — läuft komplett im Browser, kein
-  Server nötig.
+- **Automatische Fallback-Logik ändern** (nur relevant für Wochen ohne
+  Eintrag in `training_plan.json`): Funktionen `getPhase`, `getLongRunKm`
+  und `DAY_TEMPLATES` in `docs/index.html`.
 - **Sync-Häufigkeit ändern**: `cron`-Zeile in
   `.github/workflows/sync.yml` (z. B. `*/30 * * * *` für alle 30 Minuten).
+
+## Echter Trainingsplan (`docs/training_plan.json`)
+
+Enthält deinen vollständigen 17-Wochen-Plan (Sub-4h-Marathon, herzfrequenz-
+basiert), eine Woche pro Eintrag, Schlüssel = Montagsdatum. Für die aktuelle
+Woche zeigt das Dashboard automatisch die hier hinterlegten Tage an; Klick
+auf einen Tag öffnet die Details (Zielbereich, Umfang, Hinweise). Wochen
+ohne Eintrag fallen automatisch auf die generische Phasenlogik zurück — du
+kannst also jederzeit weitere reale Wochen ergänzen oder bestehende direkt
+im GitHub-Web-Editor anpassen, ohne Code zu berühren.
+
+Format pro Tag:
+```json
+"Sa": { "title": "Long Run 22 km, B2", "type": "long", "details": "…" }
+```
+`type` steuert nur die Farbe: `rest`, `easy`, `hard`, `long`, `race`.
+
+## Aktivitäts-Details & Auswertung
+
+- Klick auf eine Aktivität in der Liste öffnet Splits, Höhenmeter und
+  Pulszonen (sofern Garmin diese Daten für die Aktivität liefert — nicht
+  jedes Gerät/jede Aktivität hat Splits oder Pulszonen-Daten).
+- Die Kurzauswertung unter "Diese Woche" ist **regelbasiert**, keine
+  KI-Analyse — sie vergleicht Puls-Anteile und Split-Gleichmäßigkeit der
+  letzten Aktivität mit einfachen Schwellenwerten. Logik dazu:
+  `renderAssessment()` in `docs/index.html`.

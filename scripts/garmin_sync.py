@@ -2,10 +2,11 @@
 Garmin -> data.json Sync
 
 Loggt sich per garminconnect (inoffizielle Bibliothek) bei Garmin Connect ein,
-liest Wellness- und Aktivitätsdaten und schreibt eine kompakte JSON-Datei nach
-docs/data.json. Diese Datei wird per GitHub Pages öffentlich ausgeliefert und
-vom Dashboard (garmin_dashboard.html) per fetch() gelesen -- ohne Claude,
-ohne API-Key, ohne Tokenverbrauch im laufenden Betrieb.
+liest Wellness- und Aktivitätsdaten (inkl. Splits & Pulszonen für die letzten
+Aktivitäten) und schreibt eine JSON-Datei nach docs/data.json. Diese Datei wird
+per GitHub Pages öffentlich ausgeliefert und vom Dashboard (docs/index.html)
+per fetch() gelesen -- ohne Claude, ohne API-Key, ohne Tokenverbrauch im
+laufenden Betrieb.
 
 Benötigte Umgebungsvariablen (in GitHub Actions als Secrets hinterlegt):
   GARMIN_EMAIL
@@ -23,13 +24,15 @@ except ImportError:
     print("Bitte zuerst installieren: pip install garminconnect", file=sys.stderr)
     raise
 
+DETAIL_COUNT = 5  # für wie viele der jüngsten Aktivitäten Splits/Pulszonen geladen werden
+
 
 def safe_call(fn, *args, **kwargs):
     """Ruft fn auf und gibt None zurück, falls das Gerät/Konto den Wert nicht liefert."""
     try:
         return fn(*args, **kwargs)
     except Exception as e:
-        print(f"[warn] {fn.__name__} fehlgeschlagen: {e}", file=sys.stderr)
+        print(f"[warn] {getattr(fn, '__name__', fn)} fehlgeschlagen: {e}", file=sys.stderr)
         return None
 
 
@@ -45,14 +48,13 @@ def extract_wellness(client, today_str):
     bb = safe_call(client.get_body_battery, today_str, today_str)
     if bb and isinstance(bb, list) and len(bb) > 0:
         entry = bb[0]
-        wellness["body_battery"] = entry.get("charged") or entry.get("bodyBatteryValuesArray", [[None, None]])[-1][-1] \
-            if entry.get("bodyBatteryValuesArray") else entry.get("charged")
+        wellness["body_battery"] = entry.get("charged")
 
     sleep = safe_call(client.get_sleep_data, today_str)
     if sleep and isinstance(sleep, dict):
         dto = sleep.get("dailySleepDTO", {}) or {}
-        wellness["sleep_score"] = dto.get("sleepScores", {}).get("overall", {}).get("value") \
-            if dto.get("sleepScores") else dto.get("overallSleepScore")
+        scores = dto.get("sleepScores", {}) or {}
+        wellness["sleep_score"] = (scores.get("overall", {}) or {}).get("value") or dto.get("overallSleepScore")
 
     hrv = safe_call(client.get_hrv_data, today_str)
     if hrv and isinstance(hrv, dict):
@@ -70,20 +72,73 @@ def extract_wellness(client, today_str):
     return wellness
 
 
+def format_pace(duration_s, distance_km):
+    if not distance_km or distance_km <= 0:
+        return None
+    pace_min = (duration_s / 60) / distance_km
+    minutes = int(pace_min)
+    seconds = round((pace_min % 1) * 60)
+    if seconds == 60:
+        minutes += 1
+        seconds = 0
+    return f"{minutes}:{seconds:02d}"
+
+
+def extract_activity_detail(client, activity_id):
+    detail = {"elevation_gain_m": None, "splits": [], "hr_zones": []}
+
+    full = safe_call(client.get_activity, activity_id)
+    if full and isinstance(full, dict):
+        summary = full.get("summaryDTO", full.get("summary", {})) or {}
+        detail["elevation_gain_m"] = summary.get("elevationGain")
+
+    splits = safe_call(client.get_activity_splits, activity_id)
+    if splits and isinstance(splits, dict):
+        for lap in splits.get("lapDTOs", []) or []:
+            dist_km = round((lap.get("distance") or 0) / 1000, 2)
+            dur_s = lap.get("duration") or 0
+            detail["splits"].append({
+                "km": dist_km,
+                "pace": format_pace(dur_s, dist_km),
+                "hr": lap.get("averageHR"),
+            })
+
+    zones = safe_call(client.get_activity_hr_in_timezones, activity_id)
+    if zones and isinstance(zones, list):
+        for z in zones:
+            detail["hr_zones"].append({
+                "zone": z.get("zoneNumber"),
+                "minutes": round((z.get("secsInZone") or 0) / 60, 1),
+            })
+
+    return detail
+
+
 def extract_activities(client, limit=10):
     raw = safe_call(client.get_activities, 0, limit) or []
     activities = []
-    for a in raw:
-        activities.append({
+    for idx, a in enumerate(raw):
+        distance_km = round((a.get("distance") or 0) / 1000, 2)
+        duration_s = a.get("duration") or 0
+        activity_id = a.get("activityId")
+        item = {
+            "id": activity_id,
             "name": a.get("activityName"),
             "type": (a.get("activityType", {}) or {}).get("typeKey", "").upper(),
             "date": (a.get("startTimeLocal") or "")[:10],
-            "distance_km": round((a.get("distance") or 0) / 1000, 2),
-            "duration_min": round((a.get("duration") or 0) / 60, 1),
+            "distance_km": distance_km,
+            "duration_min": round(duration_s / 60, 1),
+            "avg_pace_per_km": format_pace(duration_s, distance_km),
             "avg_hr": a.get("averageHR"),
             "max_hr": a.get("maxHR"),
             "calories": a.get("calories"),
-        })
+            "elevation_gain_m": None,
+            "splits": [],
+            "hr_zones": [],
+        }
+        if idx < DETAIL_COUNT and activity_id:
+            item.update(extract_activity_detail(client, activity_id))
+        activities.append(item)
     return activities
 
 

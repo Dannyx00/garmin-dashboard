@@ -1,16 +1,78 @@
 {
-  "generated_at": "2026-08-04T07:49:02.951129Z",
-  "week_km": 33.7,
-  "week_sessions": 4,
-  "week_calories": 2618.0,
+  "generated_at": "2026-08-04T16:21:40.569838Z",
+  "week_km": 38.2,
+  "week_sessions": 5,
+  "week_calories": 2919.0,
   "wellness": {
-    "body_battery": 2,
-    "sleep_score": null,
-    "hrv": null,
-    "stress_avg": 38,
-    "readiness": 56
+    "body_battery": 37,
+    "sleep_score": 44,
+    "hrv": 34,
+    "stress_avg": 31,
+    "readiness": 7
   },
   "activities": [
+    {
+      "id": 23849722786,
+      "name": "Freudenberg Laufen",
+      "type": "RUNNING",
+      "date": "2026-08-04",
+      "distance_km": 4.58,
+      "duration_min": 26.3,
+      "avg_pace_per_km": "5:45",
+      "avg_hr": 190.0,
+      "max_hr": 215.0,
+      "calories": 301.0,
+      "elevation_gain_m": 65.0,
+      "splits": [
+        {
+          "km": 1.0,
+          "pace": "6:05",
+          "hr": 180.0
+        },
+        {
+          "km": 1.0,
+          "pace": "6:53",
+          "hr": 188.0
+        },
+        {
+          "km": 1.0,
+          "pace": "6:05",
+          "hr": 189.0
+        },
+        {
+          "km": 1.0,
+          "pace": "4:53",
+          "hr": 195.0
+        },
+        {
+          "km": 0.58,
+          "pace": "4:07",
+          "hr": 213.0
+        }
+      ],
+      "hr_zones": [
+        {
+          "zone": 1,
+          "minutes": 0.2
+        },
+        {
+          "zone": 2,
+          "minutes": 1.0
+        },
+        {
+          "zone": 3,
+          "minutes": 13.3
+        },
+        {
+          "zone": 4,
+          "minutes": 7.3
+        },
+        {
+          "zone": 5,
+          "minutes": 4.2
+        }
+      ]
+    },
     {
       "id": 23836124203,
       "name": "Schwimmbad",
@@ -401,63 +463,6 @@
         {
           "zone": 5,
           "minutes": 8.2
-        }
-      ]
-    },
-    {
-      "id": 23704665212,
-      "name": "Flattach Radfahren",
-      "type": "CYCLING",
-      "date": "2026-07-23",
-      "distance_km": 17.0,
-      "duration_min": 97.1,
-      "avg_pace_per_km": "5:43",
-      "avg_hr": 129.0,
-      "max_hr": 182.0,
-      "calories": 526.0,
-      "elevation_gain_m": 222.0,
-      "splits": [
-        {
-          "km": 5.0,
-          "pace": "4:54",
-          "hr": 128.0
-        },
-        {
-          "km": 5.0,
-          "pace": "3:57",
-          "hr": 134.0
-        },
-        {
-          "km": 5.0,
-          "pace": "5:13",
-          "hr": 131.0
-        },
-        {
-          "km": 2.0,
-          "pace": "13:22",
-          "hr": 123.0
-        }
-      ],
-      "hr_zones": [
-        {
-          "zone": 1,
-          "minutes": 16.2
-        },
-        {
-          "zone": 2,
-          "minutes": 3.8
-        },
-        {
-          "zone": 3,
-          "minutes": 0.2
-        },
-        {
-          "zone": 4,
-          "minutes": 0.0
-        },
-        {
-          "zone": 5,
-          "minutes": 0.0
         }
       ]
     }

@@ -25,7 +25,19 @@
   --hot:#FF7A59;
   --track:#282C38;
   --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 32px rgba(0,0,0,0.35);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 0.14s;
+  --dur: 0.22s;
 }
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+}
+@keyframes riseIn{
+  from{ opacity:0; transform:translateY(8px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+.reveal{ animation: riseIn 0.42s var(--ease) both; }
+
 *{box-sizing:border-box;}
 html,body{margin:0;padding:0;}
 body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;}
@@ -41,10 +53,10 @@ body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;-webki
 button.refresh{
   font-family:'Inter',sans-serif;font-weight:600;font-size:13px;background:var(--primary);color:#fff;border:none;
   padding:10px 18px;border-radius:99px;cursor:pointer;display:flex;align-items:center;gap:8px;
-  transition:transform .12s ease, filter .15s ease;
+  transition:transform var(--dur-fast) var(--ease), filter var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
 }
-button.refresh:hover{filter:brightness(1.12);}
-button.refresh:active{transform:scale(0.97);}
+button.refresh:hover{filter:brightness(1.12);box-shadow:0 4px 16px rgba(91,124,250,0.35);transform:translateY(-1px);}
+button.refresh:active{transform:scale(0.96) translateY(0);}
 button.refresh:focus-visible{outline:2px solid var(--primary);outline-offset:2px;}
 button.refresh:disabled{opacity:0.55;cursor:progress;}
 button.refresh.loading svg{animation:spin 0.9s linear infinite;}
@@ -73,26 +85,31 @@ h2.section-title .n{font-family:'JetBrains Mono',monospace;font-size:11px;color:
 .week-nav{display:flex;align-items:center;gap:8px;}
 .week-nav-btn{
   width:32px;height:32px;border-radius:50%;background:var(--card-2);border:1px solid var(--border);color:var(--ink);
-  display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .12s ease, border-color .12s ease, transform .1s ease;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  transition:background var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease), transform var(--dur-fast) var(--ease);
 }
-.week-nav-btn:hover{background:var(--primary-soft);border-color:var(--primary);color:var(--primary);}
-.week-nav-btn:active{transform:scale(0.92);}
+.week-nav-btn:hover{background:var(--primary-soft);border-color:var(--primary);color:var(--primary);transform:translateY(-1px);}
+.week-nav-btn:active{transform:scale(0.9);}
 .week-nav-btn:focus-visible{outline:2px solid var(--primary);outline-offset:2px;}
 .week-nav-today{
   font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--primary);background:var(--primary-soft);
-  border:1px solid rgba(91,124,250,0.35);padding:6px 12px;border-radius:99px;cursor:pointer;transition:opacity .15s ease;
+  border:1px solid rgba(91,124,250,0.35);padding:6px 12px;border-radius:99px;cursor:pointer;
+  transition:opacity var(--dur) var(--ease), transform var(--dur-fast) var(--ease), background var(--dur) var(--ease);
 }
+.week-nav-today:hover{background:rgba(91,124,250,0.24);}
+.week-nav-today:active{transform:scale(0.94);}
 .week-nav-today.hidden{display:none;}
 .week-grid-clip{overflow:hidden;}
 .plan-longrun{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink-soft);}
-.plan-longrun b{color:var(--good);font-family:'Outfit',sans-serif;font-size:16px;}
+.plan-longrun b{color:var(--good);font-family:'Outfit',sans-serif;font-size:16px;transition:color var(--dur) var(--ease);}
 .week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;}
 .day-cell{
   background:var(--card-2);border:1px solid var(--border);border-radius:12px;padding:10px 8px;min-height:92px;
   display:flex;flex-direction:column;gap:6px;cursor:pointer;text-align:left;font:inherit;color:inherit;
-  transition:transform .12s ease, border-color .12s ease;
+  transition:transform var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
 }
-.day-cell:hover{transform:translateY(-2px);border-color:var(--primary);}
+.day-cell:hover{transform:translateY(-3px);border-color:var(--primary);box-shadow:0 8px 20px rgba(91,124,250,0.18);}
+.day-cell:active{transform:translateY(-1px) scale(0.98);}
 .day-cell:focus-visible{outline:2px solid var(--primary);outline-offset:2px;}
 .day-cell.today{border-color:var(--primary);box-shadow:0 0 0 1px var(--primary);}
 .day-name{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink-soft);}
@@ -115,25 +132,28 @@ h2.section-title .n{font-family:'JetBrains Mono',monospace;font-size:11px;color:
 .assessment-note{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-soft);margin-top:10px;}
 
 .wellness-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:32px;}
-.ring-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:16px;box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;}
+.ring-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:16px;box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;transition:transform var(--dur) var(--ease), border-color var(--dur) var(--ease);}
+.ring-card:hover{transform:translateY(-3px);border-color:rgba(255,255,255,0.16);}
 .ring-card .rlabel{font-size:12px;font-weight:600;color:var(--ink);}
 .ring-empty{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-soft);}
 
 .activity-card{
   background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px 16px;margin-bottom:10px;box-shadow:var(--shadow);
   display:grid;grid-template-columns:44px 1fr auto;gap:14px;align-items:center;cursor:pointer;width:100%;text-align:left;font:inherit;color:inherit;
-  transition:transform .12s ease, border-color .12s ease;
+  transition:transform var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
 }
-.activity-card:hover{transform:translateY(-2px);border-color:var(--primary);}
+.activity-card:hover{transform:translateY(-3px);border-color:var(--primary);box-shadow:0 8px 20px rgba(91,124,250,0.18);}
+.activity-card:active{transform:translateY(-1px) scale(0.99);}
 .activity-card:focus-visible{outline:2px solid var(--primary);outline-offset:2px;}
-.act-icon{width:44px;height:44px;border-radius:12px;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.act-icon{width:44px;height:44px;border-radius:12px;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform var(--dur) var(--ease);}
+.activity-card:hover .act-icon{transform:scale(1.08);}
 .act-main{min-width:0;}
 .act-name{font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .act-date{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-soft);margin-top:2px;}
 .act-stats{text-align:right;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink-soft);line-height:1.6;}
 .act-stats b{color:var(--ink);font-weight:600;font-family:'Inter',sans-serif;}
 .hr-bar{width:74px;height:5px;background:var(--track);margin:5px 0 0 auto;position:relative;border-radius:99px;overflow:hidden;}
-.hr-bar i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,var(--warn),var(--hot));border-radius:99px;}
+.hr-bar i{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,var(--warn),var(--hot));border-radius:99px;transition:width 0.6s var(--ease);}
 
 .state-box{font-family:'Inter',sans-serif;font-size:13px;color:var(--ink-soft);padding:26px 16px;border:1px dashed var(--border);border-radius:16px;text-align:center;background:var(--card);}
 .state-box.error{color:var(--hot);border-color:var(--hot);}
@@ -144,12 +164,16 @@ footer{margin-top:36px;font-family:'JetBrains Mono',monospace;font-size:10px;col
 .modal-overlay{
   position:fixed;inset:0;background:rgba(6,7,10,0.7);backdrop-filter:blur(2px);
   display:flex;align-items:center;justify-content:center;padding:20px;z-index:50;
+  opacity:0;pointer-events:none;transition:opacity var(--dur) var(--ease);
 }
+.modal-overlay.open{opacity:1;pointer-events:auto;}
 .modal-overlay.hidden{display:none;}
 .modal-box{
   background:var(--card);border:1px solid var(--border);border-radius:20px;padding:24px;max-width:480px;width:100%;
   max-height:82vh;overflow-y:auto;box-shadow:var(--shadow);
+  transform:translateY(14px) scale(0.97);opacity:0;transition:transform var(--dur) var(--ease), opacity var(--dur) var(--ease);
 }
+.modal-overlay.open .modal-box{transform:translateY(0) scale(1);opacity:1;}
 .modal-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px;}
 .modal-title{font-family:'Outfit',sans-serif;font-weight:700;font-size:18px;}
 .modal-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-soft);margin-top:4px;}
@@ -257,8 +281,8 @@ const TAG_LABEL = {rest:'Ruhe', easy:'Locker', hard:'Intensiv', long:'Long Run',
 const WELLNESS_FIELDS = [
   {key:'body_battery', label:'Body Battery', max:100},
   {key:'sleep_score', label:'Schlaf', max:100},
-  {key:'hrv', label:'HRV', max:120, unit:'ms'},
-  {key:'stress_avg', label:'Stress', max:100},
+  {key:'hrv', label:'HRV', max:120, unit:'ms', mode:'status'},
+  {key:'stress_avg', label:'Stress', max:100, mode:'inverse'},
   {key:'readiness', label:'Bereitschaft', max:100}
 ];
 
@@ -267,11 +291,16 @@ let CURRENT_WEEK_DAYS = null;
 
 /* ---------------- Modal ---------------- */
 function openModal(html){
+  const overlay = document.getElementById('modalOverlay');
   document.getElementById('modalBox').innerHTML = html;
-  document.getElementById('modalOverlay').classList.remove('hidden');
+  overlay.classList.remove('hidden');
+  void overlay.offsetWidth; // reflow erzwingen, damit die Transition greift
+  overlay.classList.add('open');
 }
 function closeModal(){
-  document.getElementById('modalOverlay').classList.add('hidden');
+  const overlay = document.getElementById('modalOverlay');
+  overlay.classList.remove('open');
+  setTimeout(()=> overlay.classList.add('hidden'), 220);
 }
 document.getElementById('modalOverlay').addEventListener('click', (e)=>{
   if(e.target.id === 'modalOverlay') closeModal();
@@ -406,7 +435,8 @@ function renderWeekCard(offset){
     const sessionText = day.t === 'long' && !customWeek ? `Long Run ${longRunKm} km` : day.s;
     const cell = document.createElement('button');
     cell.type = 'button';
-    cell.className = 'day-cell' + (isToday ? ' today' : '') + (day.t === 'race' ? ' race-day' : '');
+    cell.className = 'day-cell reveal' + (isToday ? ' today' : '') + (day.t === 'race' ? ' race-day' : '');
+    cell.style.animationDelay = `${i*40}ms`;
     cell.innerHTML = `
       <div class="day-name${isToday?' today-label':''}">${day.n}${isToday?' &middot; heute':''}</div>
       <div class="day-session">${sessionText}</div>
@@ -525,42 +555,95 @@ function renderAssessment(activities){
 }
 
 /* ---------------- Ring-Gauges ---------------- */
-function ringColor(pct){
-  if(pct===null) return '#2A2E3A';
+/* Body Battery/Schlaf/Bereitschaft: höher = besser.
+   Stress: niedriger = besser (Garmin-Skala 0-100, 0=Ruhe).
+   HRV: kein simples "höher=besser" -- Garmin ermittelt eine persönliche
+   Baseline/einen Status (Ausgeglichen/Unausgeglichen/Niedrig); danach richten
+   wir uns, falls vorhanden. Ohne Statusdaten (älterer Sync) bleibt der Ring grau. */
+function colorForMetric(f, value, w){
+  if(value===null||value===undefined) return '#2A2E3A';
+  if(f.mode === 'inverse'){
+    if(value <= 50) return 'var(--good)';
+    if(value <= 75) return 'var(--warn)';
+    return 'var(--hot)';
+  }
+  if(f.mode === 'status'){
+    const status = ((w && w.hrv_status) || '').toUpperCase();
+    if(status === 'BALANCED') return 'var(--good)';
+    if(status === 'UNBALANCED') return 'var(--warn)';
+    if(status === 'LOW') return 'var(--hot)';
+    if(w && w.hrv_baseline_low != null){
+      return value < w.hrv_baseline_low ? 'var(--hot)' : 'var(--good)';
+    }
+    return 'var(--ink-soft)';
+  }
+  const pct = Math.max(0, Math.min(100, (value/f.max)*100));
   if(pct < 40) return 'var(--hot)';
   if(pct < 70) return 'var(--warn)';
   return 'var(--good)';
 }
-function ringSVG(value, max){
+function arcPercent(f, value, w){
+  if(value===null||value===undefined) return 0;
+  if(f.key === 'hrv'){
+    const hi = (w && w.hrv_baseline_high) || f.max;
+    return Math.max(6, Math.min(100, (value/hi)*100));
+  }
+  return Math.max(0, Math.min(100, (value/f.max)*100));
+}
+function subLabel(f, value, w){
+  if(value===null||value===undefined) return 'kein Signal';
+  if(f.key === 'hrv'){
+    const map = {BALANCED:'Ausgeglichen', UNBALANCED:'Unausgeglichen', LOW:'Niedrig'};
+    const label = map[((w && w.hrv_status)||'').toUpperCase()];
+    return label || f.unit || '';
+  }
+  if(f.key === 'stress_avg'){
+    if(value <= 25) return 'Ruhe';
+    if(value <= 50) return 'Niedrig';
+    if(value <= 75) return 'Mittel';
+    return 'Hoch';
+  }
+  return f.unit || '';
+}
+function ringSVG(f, value, w){
   const r = 30, c = 2*Math.PI*r;
   if(value===null||value===undefined){
     return `<svg width="76" height="76" viewBox="0 0 76 76"><circle cx="38" cy="38" r="${r}" fill="none" stroke="#242833" stroke-width="7" stroke-dasharray="4 5"/></svg>`;
   }
-  const pct = Math.max(0, Math.min(100, (value/max)*100));
-  const offset = c - (pct/100)*c;
-  const color = ringColor(pct);
+  const pct = arcPercent(f, value, w);
+  const targetOffset = c - (pct/100)*c;
+  const color = colorForMetric(f, value, w);
   return `<svg width="76" height="76" viewBox="0 0 76 76">
     <circle cx="38" cy="38" r="${r}" fill="none" stroke="#242833" stroke-width="7"/>
-    <circle cx="38" cy="38" r="${r}" fill="none" stroke="${color}" stroke-width="7"
-      stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${offset}" transform="rotate(-90 38 38)"/>
+    <circle class="ring-fill" cx="38" cy="38" r="${r}" fill="none" stroke="${color}" stroke-width="7"
+      stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c}"
+      data-target="${targetOffset}" style="transition:stroke-dashoffset 0.9s var(--ease);"
+      transform="rotate(-90 38 38)"/>
   </svg>`;
 }
 function renderWellness(w){
   const grid = document.getElementById('wellnessGrid');
   grid.innerHTML = '';
-  WELLNESS_FIELDS.forEach(f=>{
+  WELLNESS_FIELDS.forEach((f, idx)=>{
     const val = w ? w[f.key] : null;
     const card = document.createElement('div');
-    card.className = 'ring-card';
+    card.className = 'ring-card reveal';
+    card.style.animationDelay = `${idx*50}ms`;
     card.innerHTML = `
       <div style="position:relative;">
-        ${ringSVG(val, f.max)}
+        ${ringSVG(f, val, w)}
         ${ (val!==null && val!==undefined) ? `<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif;font-weight:700;font-size:16px;color:var(--ink);">${val}</div>` : '' }
       </div>
       <div class="rlabel">${f.label}</div>
-      ${ (val===null||val===undefined) ? `<div class="ring-empty">kein Signal</div>` : (f.unit?`<div class="ring-empty">${f.unit}</div>`:'') }
+      <div class="ring-empty">${subLabel(f, val, w)}</div>
     `;
     grid.appendChild(card);
+  });
+  // Ringe animiert einzeichnen (zwei rAF, damit der Browser den Start-Zustand erst rendert)
+  requestAnimationFrame(()=>{
+    requestAnimationFrame(()=>{
+      grid.querySelectorAll('.ring-fill').forEach(c => c.setAttribute('stroke-dashoffset', c.dataset.target));
+    });
   });
 }
 
@@ -593,7 +676,8 @@ function renderActivities(list){
     const hrPct = a.max_hr ? Math.min(100, Math.round((a.avg_hr/a.max_hr)*100)) : (a.avg_hr ? Math.min(100, Math.round(a.avg_hr/2)) : 0);
     const row = document.createElement('button');
     row.type = 'button';
-    row.className = 'activity-card';
+    row.className = 'activity-card reveal';
+    row.style.animationDelay = `${idx*50}ms`;
     row.innerHTML = `
       <div class="act-icon">${icon}</div>
       <div class="act-main">
@@ -603,11 +687,16 @@ function renderActivities(list){
       <div class="act-stats">
         ${statLine}
         ${a.avg_hr ? `<div>&Oslash; ${a.avg_hr} bpm${a.max_hr ? ' &middot; max '+a.max_hr : ''}</div>` : ''}
-        ${a.avg_hr ? `<div class="hr-bar"><i style="width:${hrPct}%"></i></div>` : ''}
+        ${a.avg_hr ? `<div class="hr-bar"><i data-target="${hrPct}"></i></div>` : ''}
       </div>
     `;
     row.addEventListener('click', ()=> openActivityModal(a, type, icon));
     container.appendChild(row);
+  });
+  requestAnimationFrame(()=>{
+    requestAnimationFrame(()=>{
+      container.querySelectorAll('.hr-bar i').forEach(el => el.style.width = el.dataset.target + '%');
+    });
   });
 }
 

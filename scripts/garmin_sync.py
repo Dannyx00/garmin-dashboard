@@ -41,6 +41,9 @@ def extract_wellness(client, today_str):
         "body_battery": None,
         "sleep_score": None,
         "hrv": None,
+        "hrv_status": None,       # BALANCED / UNBALANCED / LOW (von Garmin selbst ermittelt)
+        "hrv_baseline_low": None, # untere Grenze von Garmins persönlichem "ausgeglichenem" Bereich
+        "hrv_baseline_high": None,
         "stress_avg": None,
         "readiness": None,
     }
@@ -60,6 +63,10 @@ def extract_wellness(client, today_str):
     if hrv and isinstance(hrv, dict):
         summary = hrv.get("hrvSummary", {}) or {}
         wellness["hrv"] = summary.get("lastNightAvg")
+        wellness["hrv_status"] = summary.get("status")
+        baseline = summary.get("baseline", {}) or {}
+        wellness["hrv_baseline_low"] = baseline.get("balancedLow")
+        wellness["hrv_baseline_high"] = baseline.get("balancedUpper")
 
     stress = safe_call(client.get_stress_data, today_str)
     if stress and isinstance(stress, dict):

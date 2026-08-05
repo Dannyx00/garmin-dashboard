@@ -80,6 +80,17 @@ Format pro Tag:
 ```
 `type` steuert nur die Farbe: `rest`, `easy`, `hard`, `long`, `race`.
 
+## Farblogik bei Wellness-Ringen
+
+- **Body Battery, Schlaf, Bereitschaft**: höher = besser (grün ab ~70%).
+- **Stress**: umgekehrt — niedrig = grün/gut, hoch = rot/schlecht (Garmin-Skala
+  0-100, 0 = Ruhe).
+- **HRV**: kein simpler Schwellenwert. Genutzt wird Garmins eigener,
+  personalisierter Status (`hrv_status`: Ausgeglichen/Unausgeglichen/Niedrig)
+  bzw. ersatzweise die persönliche Baseline-Range (`hrv_baseline_low/high`).
+  Ohne diese Felder (z. B. bei älteren `data.json`-Ständen vor diesem Update)
+  bleibt der Ring neutral grau, bis der nächste Sync sie liefert.
+
 ## Aktivitäts-Details & Auswertung
 
 - Klick auf eine Aktivität in der Liste öffnet Splits, Höhenmeter und

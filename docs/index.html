@@ -249,7 +249,7 @@ table.splits td{padding:6px 4px;border-bottom:1px solid var(--border);}
       Kurzauswertung
     </div>
     <div class="assessment-text" id="assessmentText">Noch keine Daten geladen.</div>
-    <div class="assessment-note">automatisch & regelbasiert berechnet, keine KI-Analyse</div>
+    <div class="assessment-note" id="assessmentNote">automatisch & regelbasiert berechnet</div>
   </div>
 
   <h2 class="section-title">Wellness <span class="n">// letzter Sync</span></h2>
@@ -517,13 +517,26 @@ function findPlanDayForDate(dateStr){
   if(!CURRENT_WEEK_DAYS) return null;
   return CURRENT_WEEK_DAYS.find(d => isoDate(d.date) === dateStr) || null;
 }
-function renderAssessment(activities){
+function renderAssessment(activities, data){
   const box = document.getElementById('assessmentText');
+  const note = document.getElementById('assessmentNote');
   if(!activities || !activities.length){
     box.textContent = 'Noch keine Aktivität synchronisiert.';
+    note.textContent = 'automatisch & regelbasiert berechnet';
     return;
   }
   const act = activities[0];
+
+  // Wenn ein KI-Kommentar vorliegt UND er sich auf genau diese (aktuellste)
+  // Aktivität bezieht, zeigen wir den -- sonst greift die regelbasierte
+  // Auswertung darunter als Fallback (z. B. wenn kein API-Key gesetzt ist
+  // oder der letzte Call fehlgeschlagen ist).
+  if(data && data.ai_assessment && data.ai_assessment_activity_id === act.id){
+    box.textContent = data.ai_assessment;
+    note.textContent = `KI-Kommentar (${data.ai_assessment_model || 'Claude'}) auf Basis regelbasierter Kennzahlen`;
+    return;
+  }
+
   const parts = [];
   parts.push(`${act.name || act.type} am ${fmtDate(act.date)}: ${act.distance_km} km in ${Math.round(act.duration_min)} Minuten${act.avg_pace_per_km ? ' (\u00d8 ' + act.avg_pace_per_km + ' /km)' : ''}.`);
 
@@ -552,6 +565,7 @@ function renderAssessment(activities){
   }
 
   box.textContent = parts.join(' ');
+  note.textContent = 'automatisch & regelbasiert berechnet, keine KI-Analyse';
 }
 
 /* ---------------- Ring-Gauges ---------------- */
@@ -779,7 +793,7 @@ async function loadDashboard(){
     renderWeekKmSummary(parsed.week_km, parsed.week_sessions);
     renderWellness(parsed.wellness);
     renderActivities(parsed.activities);
-    renderAssessment(parsed.activities);
+    renderAssessment(parsed.activities, parsed);
 
     const gen = parsed.generated_at ? new Date(parsed.generated_at) : new Date();
     meta.textContent = 'Letzter Sync: ' + gen.toLocaleString('de-DE');

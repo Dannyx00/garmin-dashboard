@@ -99,9 +99,18 @@ docs/index.html liest data.json + training_plan.json per fetch()
   geprüft und von Daniel abgelehnt, weil dafür ein GitHub-Token im
   öffentlichen Seiten-Code liegen müsste. Sync bleibt rein
   zeitgesteuert/manuell über den GitHub-Actions-Tab.
-- **Kurzauswertung ist bewusst regelbasiert, nicht KI-generiert** — im
-  Standalone-Betrieb ist kein Claude/Anthropic-API mehr im Spiel, das
-  wurde Daniel explizit so kommuniziert.
+- **Update (05.08.2026): Kurzauswertung ist jetzt hybrid.** Die Kennzahlen
+  (Pace-/HF-Drift 1. vs. 2. Hälfte, Split-Streuung, Zonenzeit) werden weiterhin
+  komplett regelbasiert berechnet, `scripts/garmin_sync.py:compute_pacing_facts()`.
+  Optional (nur wenn Secret `ANTHROPIC_API_KEY` gesetzt ist) wird daraus
+  zusätzlich ein 2–3-Satz-Kommentar von **Claude Haiku 4.5** erzeugt
+  (`generate_ai_assessment()`), aber NUR serverseitig im stündlichen
+  GitHub-Actions-Job und NUR bei einer neuen Aktivität (Dedupe über
+  Activity-ID) — nicht bei jedem Sync-Lauf und nicht im Browser. Kosten:
+  ~3–4 Calls/Woche, ca. 3–4 Cent/Monat. Ohne den Secret läuft alles exakt wie
+  vorher (regelbasierter Text, kein API-Call, `$0`). Das war Daniels bewusste
+  Entscheidung, die alte "kein-KI"-Regel zu lockern — die Grundausrichtung
+  ("kein Live-Betrieb ohne API-Key nötig") bleibt aber erhalten.
 - **`training_plan.json` ist die Quelle der Wahrheit**, sobald ein Eintrag
   für eine Woche existiert; die generische Phasenlogik (`getPhase`,
   `getLongRunKm`, `DAY_TEMPLATES` in `index.html`) ist nur Fallback für

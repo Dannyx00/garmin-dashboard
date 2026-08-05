@@ -96,7 +96,21 @@ Format pro Tag:
 - Klick auf eine Aktivität in der Liste öffnet Splits, Höhenmeter und
   Pulszonen (sofern Garmin diese Daten für die Aktivität liefert — nicht
   jedes Gerät/jede Aktivität hat Splits oder Pulszonen-Daten).
-- Die Kurzauswertung unter "Diese Woche" ist **regelbasiert**, keine
-  KI-Analyse — sie vergleicht Puls-Anteile und Split-Gleichmäßigkeit der
-  letzten Aktivität mit einfachen Schwellenwerten. Logik dazu:
-  `renderAssessment()` in `docs/index.html`.
+- Die Kurzauswertung unter "Diese Woche" basiert weiterhin auf **regelbasiert
+  berechneten Kennzahlen** (Pace-/HF-Drift 1. vs. 2. Hälfte, Split-Streuung,
+  Zonenzeit-Verteilung — `compute_pacing_facts()` in `scripts/garmin_sync.py`).
+  Diese Kennzahlen laufen immer, unabhängig von einem API-Key.
+- **Optional** wird daraus zusätzlich ein kurzer Kommentar von **Claude Haiku
+  4.5** erzeugt (`generate_ai_assessment()`), wenn der GitHub-Actions-Secret
+  `ANTHROPIC_API_KEY` gesetzt ist. Wichtig: das passiert **nicht bei jedem
+  stündlichen Sync**, sondern nur, wenn seit dem letzten Mal eine neue
+  Aktivität dazugekommen ist (Dedupe über die Activity-ID). Bei 3–4
+  Läufen/Woche sind das 3–4 API-Calls/Woche — Kosten liegen im Bereich weniger
+  Cent pro Monat. Ohne den Secret läuft alles wie zuvor, nur ohne KI-Kommentar
+  (Frontend fällt automatisch auf die regelbasierte Textvariante in
+  `renderAssessment()`, `docs/index.html`, zurück).
+- **Secret einrichten (optional):** Repo → *Settings* → *Secrets and
+  variables* → *Actions* → *New repository secret* → Name
+  `ANTHROPIC_API_KEY`, Wert dein Anthropic-API-Key von
+  [console.anthropic.com](https://console.anthropic.com). Der Key landet nur
+  im Actions-Secret, nie im öffentlichen `docs/`-Code.

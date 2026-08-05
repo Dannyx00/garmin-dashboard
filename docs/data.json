@@ -1,16 +1,16 @@
 {
-  "generated_at": "2026-08-05T19:08:44.723133Z",
+  "generated_at": "2026-08-05T23:31:35.879349Z",
   "week_km": 32.1,
   "week_sessions": 4,
   "week_calories": 2507.0,
   "wellness": {
-    "body_battery": 76,
+    "body_battery": 78,
     "sleep_score": 39,
     "hrv": 37,
     "hrv_status": "BALANCED",
     "hrv_baseline_low": 37,
     "hrv_baseline_high": 55,
-    "stress_avg": 20,
+    "stress_avg": 26,
     "readiness": 15
   },
   "activities": [

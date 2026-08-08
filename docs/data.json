@@ -1,19 +1,171 @@
 {
-  "generated_at": "2026-08-08T19:43:47.373655Z",
-  "week_km": 34.4,
-  "week_sessions": 4,
-  "week_calories": 2655.0,
+  "generated_at": "2026-08-08T21:05:17.233415Z",
+  "week_km": 56.4,
+  "week_sessions": 5,
+  "week_calories": 4094.0,
   "wellness": {
-    "body_battery": 47,
+    "body_battery": 48,
     "sleep_score": 78,
     "hrv": 42,
     "hrv_status": "BALANCED",
     "hrv_baseline_low": 37,
     "hrv_baseline_high": 55,
-    "stress_avg": 39,
-    "readiness": 41
+    "stress_avg": 44,
+    "readiness": 1
   },
   "activities": [
+    {
+      "id": 23903804577,
+      "name": "Siegen Laufen",
+      "type": "RUNNING",
+      "date": "2026-08-08",
+      "distance_km": 22.01,
+      "duration_min": 159.3,
+      "avg_pace_per_km": "7:14",
+      "avg_hr": 177.0,
+      "max_hr": 206.0,
+      "calories": 1439.0,
+      "elevation_gain_m": 39.0,
+      "splits": [
+        {
+          "km": 1.0,
+          "pace": "7:15",
+          "hr": 167.0
+        },
+        {
+          "km": 1.0,
+          "pace": "7:39",
+          "hr": 173.0
+        },
+        {
+          "km": 1.0,
+          "pace": "7:14",
+          "hr": 173.0
+        },
+        {
+          "km": 1.0,
+          "pace": "6:59",
+          "hr": 175.0
+        },
+        {
+          "km": 1.0,
+          "pace": "7:42",
+          "hr": 173.0
+        },
+        {
+          "km": 1.0,
+          "pace": "7:21",
+          "hr": 176.0
+        },
+        {
+          "km": 1.0,
+          "pace": "7:17",
+          "hr": 173.0
+        },
+        {
+          "km": 1.0,
+          "pace": "7:20",
+          "hr": 174.0
+        },
+        {
+          "km": 1.0,
+          "pace": "6:55",
+          "hr": 176.0
+        },
+        {
+          "km": 1.0,
+          "pace": "5:10",
+          "hr": 195.0
+        },
+        {
+          "km": 1.0,
+          "pace": "5:21",
+          "hr": 199.0
+        },
+        {
+          "km": 1.0,
+          "pace": "7:10",
+          "hr": 179.0
+        },
+        {
+          "km": 1.0,
+          "pace": "7:12",
+          "hr": 179.0
+        },
+        {
+          "km": 1.0,
+          "pace": "7:16",
+          "hr": 175.0
+        },
+        {
+          "km": 1.0,
+          "pace": "7:50",
+          "hr": 174.0
+        },
+        {
+          "km": 1.0,
+          "pace": "7:47",
+          "hr": 174.0
+        },
+        {
+          "km": 1.0,
+          "pace": "7:06",
+          "hr": 183.0
+        },
+        {
+          "km": 1.0,
+          "pace": "7:29",
+          "hr": 179.0
+        },
+        {
+          "km": 1.0,
+          "pace": "7:31",
+          "hr": 179.0
+        },
+        {
+          "km": 1.0,
+          "pace": "7:20",
+          "hr": 181.0
+        },
+        {
+          "km": 1.0,
+          "pace": "7:50",
+          "hr": 179.0
+        },
+        {
+          "km": 1.0,
+          "pace": "8:34",
+          "hr": 176.0
+        },
+        {
+          "km": 0.01,
+          "pace": "4:15",
+          "hr": 178.0
+        }
+      ],
+      "hr_zones": [
+        {
+          "zone": 1,
+          "minutes": 0.4
+        },
+        {
+          "zone": 2,
+          "minutes": 67.0
+        },
+        {
+          "zone": 3,
+          "minutes": 82.5
+        },
+        {
+          "zone": 4,
+          "minutes": 2.4
+        },
+        {
+          "zone": 5,
+          "minutes": 6.7
+        }
+      ]
+    },
     {
       "id": 23878362649,
       "name": "Freudenberg Laufen",
@@ -369,78 +521,6 @@
         {
           "zone": 5,
           "minutes": 0.0
-        }
-      ]
-    },
-    {
-      "id": 23789958692,
-      "name": "Freudenberg Laufen",
-      "type": "RUNNING",
-      "date": "2026-07-30",
-      "distance_km": 6.01,
-      "duration_min": 45.3,
-      "avg_pace_per_km": "7:33",
-      "avg_hr": 165.0,
-      "max_hr": 200.0,
-      "calories": 407.0,
-      "elevation_gain_m": 70.0,
-      "splits": [
-        {
-          "km": 1.0,
-          "pace": "7:51",
-          "hr": 147.0
-        },
-        {
-          "km": 1.0,
-          "pace": "8:06",
-          "hr": 161.0
-        },
-        {
-          "km": 1.0,
-          "pace": "8:49",
-          "hr": 167.0
-        },
-        {
-          "km": 1.0,
-          "pace": "6:58",
-          "hr": 168.0
-        },
-        {
-          "km": 1.0,
-          "pace": "6:46",
-          "hr": 176.0
-        },
-        {
-          "km": 1.0,
-          "pace": "6:45",
-          "hr": 178.0
-        },
-        {
-          "km": 0.01,
-          "pace": "6:54",
-          "hr": 200.0
-        }
-      ],
-      "hr_zones": [
-        {
-          "zone": 1,
-          "minutes": 5.2
-        },
-        {
-          "zone": 2,
-          "minutes": 31.0
-        },
-        {
-          "zone": 3,
-          "minutes": 5.6
-        },
-        {
-          "zone": 4,
-          "minutes": 1.2
-        },
-        {
-          "zone": 5,
-          "minutes": 0.3
         }
       ]
     }

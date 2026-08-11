@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-08-11T15:30:32.245707Z",
-  "week_km": 34.9,
-  "week_sessions": 3,
-  "week_calories": 2295.0,
+  "generated_at": "2026-08-11T19:47:06.315562Z",
+  "week_km": 45.2,
+  "week_sessions": 4,
+  "week_calories": 2960.0,
   "wellness": {
     "body_battery": 49,
     "sleep_score": 52,
@@ -10,10 +10,117 @@
     "hrv_status": "BALANCED",
     "hrv_baseline_low": 37,
     "hrv_baseline_high": 55,
-    "stress_avg": 21,
-    "readiness": 45
+    "stress_avg": 22,
+    "readiness": 20
   },
   "activities": [
+    {
+      "id": 23938250807,
+      "name": "Freudenberg - 6x1 Intervall",
+      "type": "RUNNING",
+      "date": "2026-08-11",
+      "distance_km": 10.31,
+      "duration_min": 69.4,
+      "avg_pace_per_km": "6:44",
+      "avg_hr": 173.0,
+      "max_hr": 201.0,
+      "calories": 665.0,
+      "elevation_gain_m": 100.0,
+      "splits": [
+        {
+          "km": 1.0,
+          "pace": "9:09",
+          "hr": 147.0
+        },
+        {
+          "km": 0.64,
+          "pace": "9:08",
+          "hr": 153.0
+        },
+        {
+          "km": 1.0,
+          "pace": "5:23",
+          "hr": 193.0
+        },
+        {
+          "km": 0.4,
+          "pace": "9:12",
+          "hr": 162.0
+        },
+        {
+          "km": 1.0,
+          "pace": "5:12",
+          "hr": 191.0
+        },
+        {
+          "km": 0.4,
+          "pace": "9:57",
+          "hr": 163.0
+        },
+        {
+          "km": 1.0,
+          "pace": "5:22",
+          "hr": 192.0
+        },
+        {
+          "km": 0.4,
+          "pace": "8:29",
+          "hr": 164.0
+        },
+        {
+          "km": 1.0,
+          "pace": "4:43",
+          "hr": 197.0
+        },
+        {
+          "km": 0.4,
+          "pace": "9:02",
+          "hr": 172.0
+        },
+        {
+          "km": 1.0,
+          "pace": "4:41",
+          "hr": 193.0
+        },
+        {
+          "km": 0.4,
+          "pace": "8:48",
+          "hr": 166.0
+        },
+        {
+          "km": 1.0,
+          "pace": "4:26",
+          "hr": 188.0
+        },
+        {
+          "km": 0.67,
+          "pace": "9:39",
+          "hr": 161.0
+        }
+      ],
+      "hr_zones": [
+        {
+          "zone": 1,
+          "minutes": 10.5
+        },
+        {
+          "zone": 2,
+          "minutes": 25.7
+        },
+        {
+          "zone": 3,
+          "minutes": 4.6
+        },
+        {
+          "zone": 4,
+          "minutes": 10.5
+        },
+        {
+          "zone": 5,
+          "minutes": 17.5
+        }
+      ]
+    },
     {
       "id": 23903804577,
       "name": "Siegen Laufen",
@@ -375,148 +482,6 @@
         {
           "zone": 4,
           "minutes": 0.0
-        },
-        {
-          "zone": 5,
-          "minutes": 0.0
-        }
-      ]
-    },
-    {
-      "id": 23815876213,
-      "name": "Freudenberg Laufen",
-      "type": "RUNNING",
-      "date": "2026-08-01",
-      "distance_km": 20.02,
-      "duration_min": 148.8,
-      "avg_pace_per_km": "7:26",
-      "avg_hr": 171.0,
-      "max_hr": 193.0,
-      "calories": 1336.0,
-      "elevation_gain_m": 262.0,
-      "splits": [
-        {
-          "km": 1.0,
-          "pace": "9:30",
-          "hr": 155.0
-        },
-        {
-          "km": 1.0,
-          "pace": "8:16",
-          "hr": 166.0
-        },
-        {
-          "km": 1.0,
-          "pace": "8:03",
-          "hr": 168.0
-        },
-        {
-          "km": 1.0,
-          "pace": "7:48",
-          "hr": 167.0
-        },
-        {
-          "km": 1.0,
-          "pace": "8:30",
-          "hr": 165.0
-        },
-        {
-          "km": 1.0,
-          "pace": "7:26",
-          "hr": 170.0
-        },
-        {
-          "km": 1.0,
-          "pace": "6:31",
-          "hr": 168.0
-        },
-        {
-          "km": 1.0,
-          "pace": "7:14",
-          "hr": 168.0
-        },
-        {
-          "km": 1.0,
-          "pace": "7:25",
-          "hr": 168.0
-        },
-        {
-          "km": 1.0,
-          "pace": "7:13",
-          "hr": 168.0
-        },
-        {
-          "km": 1.0,
-          "pace": "7:49",
-          "hr": 168.0
-        },
-        {
-          "km": 1.0,
-          "pace": "7:45",
-          "hr": 168.0
-        },
-        {
-          "km": 1.0,
-          "pace": "7:49",
-          "hr": 170.0
-        },
-        {
-          "km": 1.0,
-          "pace": "10:11",
-          "hr": 168.0
-        },
-        {
-          "km": 1.0,
-          "pace": "9:19",
-          "hr": 172.0
-        },
-        {
-          "km": 1.0,
-          "pace": "5:49",
-          "hr": 179.0
-        },
-        {
-          "km": 1.0,
-          "pace": "5:33",
-          "hr": 188.0
-        },
-        {
-          "km": 1.0,
-          "pace": "5:36",
-          "hr": 188.0
-        },
-        {
-          "km": 1.0,
-          "pace": "5:31",
-          "hr": 187.0
-        },
-        {
-          "km": 1.0,
-          "pace": "5:24",
-          "hr": 188.0
-        },
-        {
-          "km": 0.02,
-          "pace": "5:56",
-          "hr": 193.0
-        }
-      ],
-      "hr_zones": [
-        {
-          "zone": 1,
-          "minutes": 5.6
-        },
-        {
-          "zone": 2,
-          "minutes": 109.7
-        },
-        {
-          "zone": 3,
-          "minutes": 25.8
-        },
-        {
-          "zone": 4,
-          "minutes": 7.0
         },
         {
           "zone": 5,

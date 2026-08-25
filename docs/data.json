@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-25T14:28:55.235388Z",
+  "generated_at": "2026-08-25T17:05:04.523120Z",
   "week_km": 33.7,
   "week_sessions": 3,
   "week_calories": 2206.0,
@@ -10,7 +10,7 @@
     "hrv_status": "BALANCED",
     "hrv_baseline_low": 38,
     "hrv_baseline_high": 55,
-    "stress_avg": 32,
+    "stress_avg": 35,
     "readiness": 71
   },
   "activities": [

@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-09-13T23:00:33.627048Z",
+  "generated_at": "2026-09-14T00:55:12.301521Z",
   "week_km": 3.7,
   "week_sessions": 1,
   "week_calories": 233.0,
   "wellness": {
-    "body_battery": 19,
-    "sleep_score": 37,
-    "hrv": 22,
-    "hrv_status": "BALANCED",
-    "hrv_baseline_low": 38,
-    "hrv_baseline_high": 57,
-    "stress_avg": 51,
-    "readiness": 27
+    "body_battery": 0,
+    "sleep_score": null,
+    "hrv": null,
+    "hrv_status": null,
+    "hrv_baseline_low": null,
+    "hrv_baseline_high": null,
+    "stress_avg": 38,
+    "readiness": 61
   },
   "activities": [
     {

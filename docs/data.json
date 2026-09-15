@@ -1,19 +1,86 @@
 {
-  "generated_at": "2026-09-15T01:16:09.939597Z",
-  "week_km": 3.7,
-  "week_sessions": 1,
-  "week_calories": 233.0,
+  "generated_at": "2026-09-15T07:27:00.686472Z",
+  "week_km": 9.1,
+  "week_sessions": 2,
+  "week_calories": 601.0,
   "wellness": {
-    "body_battery": 7,
-    "sleep_score": null,
-    "hrv": null,
-    "hrv_status": null,
-    "hrv_baseline_low": null,
-    "hrv_baseline_high": null,
-    "stress_avg": 20,
-    "readiness": 58
+    "body_battery": 39,
+    "sleep_score": 69,
+    "hrv": 34,
+    "hrv_status": "LOW",
+    "hrv_baseline_low": 39,
+    "hrv_baseline_high": 57,
+    "stress_avg": 28,
+    "readiness": 27
   },
   "activities": [
+    {
+      "id": 24365525364,
+      "name": "Bardolino Laufen",
+      "type": "RUNNING",
+      "date": "2026-09-15",
+      "distance_km": 5.42,
+      "duration_min": 34.5,
+      "avg_pace_per_km": "6:22",
+      "avg_hr": 172.0,
+      "max_hr": 194.0,
+      "calories": 368.0,
+      "elevation_gain_m": 35.0,
+      "splits": [
+        {
+          "km": 1.0,
+          "pace": "7:13",
+          "hr": 156.0
+        },
+        {
+          "km": 1.0,
+          "pace": "6:39",
+          "hr": 163.0
+        },
+        {
+          "km": 1.0,
+          "pace": "5:55",
+          "hr": 176.0
+        },
+        {
+          "km": 1.0,
+          "pace": "5:50",
+          "hr": 180.0
+        },
+        {
+          "km": 1.0,
+          "pace": "6:08",
+          "hr": 183.0
+        },
+        {
+          "km": 0.42,
+          "pace": "6:28",
+          "hr": 180.0
+        }
+      ],
+      "hr_zones": [
+        {
+          "zone": 1,
+          "minutes": 2.1
+        },
+        {
+          "zone": 2,
+          "minutes": 12.8
+        },
+        {
+          "zone": 3,
+          "minutes": 17.7
+        },
+        {
+          "zone": 4,
+          "minutes": 1.8
+        },
+        {
+          "zone": 5,
+          "minutes": 0.0
+        }
+      ]
+    },
     {
       "id": 24283905851,
       "name": "Freudenberg Laufen",
@@ -559,98 +626,6 @@
         {
           "zone": 5,
           "minutes": 2.0
-        }
-      ]
-    },
-    {
-      "id": 24136031509,
-      "name": "Freudenberg Laufen",
-      "type": "RUNNING",
-      "date": "2026-08-27",
-      "distance_km": 10.0,
-      "duration_min": 72.7,
-      "avg_pace_per_km": "7:16",
-      "avg_hr": 170.0,
-      "max_hr": 187.0,
-      "calories": 695.0,
-      "elevation_gain_m": 100.0,
-      "splits": [
-        {
-          "km": 1.0,
-          "pace": "7:52",
-          "hr": 156.0
-        },
-        {
-          "km": 1.0,
-          "pace": "8:02",
-          "hr": 168.0
-        },
-        {
-          "km": 1.0,
-          "pace": "8:03",
-          "hr": 170.0
-        },
-        {
-          "km": 1.0,
-          "pace": "7:05",
-          "hr": 168.0
-        },
-        {
-          "km": 1.0,
-          "pace": "7:49",
-          "hr": 173.0
-        },
-        {
-          "km": 1.0,
-          "pace": "7:00",
-          "hr": 169.0
-        },
-        {
-          "km": 1.0,
-          "pace": "7:30",
-          "hr": 172.0
-        },
-        {
-          "km": 1.0,
-          "pace": "6:37",
-          "hr": 171.0
-        },
-        {
-          "km": 1.0,
-          "pace": "6:25",
-          "hr": 173.0
-        },
-        {
-          "km": 1.0,
-          "pace": "6:17",
-          "hr": 180.0
-        },
-        {
-          "km": 0.0,
-          "pace": null,
-          "hr": 176.0
-        }
-      ],
-      "hr_zones": [
-        {
-          "zone": 1,
-          "minutes": 3.7
-        },
-        {
-          "zone": 2,
-          "minutes": 48.2
-        },
-        {
-          "zone": 3,
-          "minutes": 20.4
-        },
-        {
-          "zone": 4,
-          "minutes": 0.1
-        },
-        {
-          "zone": 5,
-          "minutes": 0.0
         }
       ]
     }

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T15:07:08.340828Z",
+  "generated_at": "2026-09-28T21:41:25.716721Z",
   "week_km": 0,
   "week_sessions": 0,
   "week_calories": 0,
@@ -10,8 +10,8 @@
     "hrv_status": null,
     "hrv_baseline_low": null,
     "hrv_baseline_high": null,
-    "stress_avg": null,
-    "readiness": null
+    "stress_avg": -1,
+    "readiness": 94
   },
   "activities": [
     {
